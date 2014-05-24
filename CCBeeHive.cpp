@@ -60,16 +60,20 @@ void CCBeeHive::MakeCross (int r, const Hexagon& center, vector<Hexagon>& cross,
 
 }
 
-void CCBeeHive::MakeLine (Hexagon& start, Hexagon& end, vector<Hexagon>& line, ccColor4F color)
+void CCBeeHive::MakeLine2 (Hexagon& start, Hexagon& end, vector<Hexagon>& line, ccColor4F color)
 {
-    int N = start.distance (end);
+	 
+	line.push_back(start);
+ 
+	while ((line.end()-1)->distance(end) > 0)
+	{
+		Hexagon a = end - *(line.end() - 1);
+		if (abs(a.q)>abs(a.r))
+				
+		line.push_back(a);
+	 
+	}
 
-    for (int i=0; i<=N; ++i)
-    {
-        Hexagon h= (start * (1.0f - float (i) / N) + (end * float (i) / N));
-        h.color = color;
-        line.push_back (h);
-    }
 
 }
 
@@ -103,5 +107,18 @@ void CCBeeHive::MakeIntersectRange (int r, const Hexagon& center, vector<Hexagon
 
 
 }
+
+void CCBeeHive::MakeLine(Hexagon& start, Hexagon& end, vector<Hexagon>& line, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
+{
+	int N = start.distance(end);
+
+	for (int i = 0; i <= N; ++i)
+	{
+		Hexagon h = (start * (1.0f - float(i) / N) + (end * float(i) / N));
+		h.color = color;
+		line.push_back(h);
+	}
+}
+
 
 

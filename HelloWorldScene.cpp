@@ -44,7 +44,17 @@ bool HelloWorld::init()
     Hexagones fields1 (5);
     fields.zeroPoint = ccp (s.width / 2, s.height / 2);
     touch_field.zeroPoint = ccp (s.width / 2, s.height / 2);
-    CCBeeHive::MakeRings (3,5, ZeroHexagon, fields.hexagones);
+	CCBeeHive::MakeHexagons(20,  ZeroHexagon, fields.hexagones);
+	back_fields.zeroPoint = ccp(s.width / 2 - 10 * powf(3, 0.5), s.height / 2 );
+	CCBeeHive::MakeHexagons(20, ZeroHexagon, back_fields.hexagones,ccc4f(1,0,0,1));
+	
+	/*CCBeeHive::MakeRing(1, ZeroHexagon, fields.hexagones);
+	 for (auto & a :fields.hexagones)
+	 {
+		 CCLOG("pointe is x:%d,y:%d\n", a.x, a.y);
+		 CCLOG("0 --> point is %d\n", ZeroHexagon.Towards(a));
+	 }*/
+	 
     // CCBeeHive::MakeIntersectRange (3, ZeroHexagon.Move (Hexagon::L), fields1.hexagones, fields.hexagones);
     setTouchMode (kCCTouchesOneByOne);
     return true;
@@ -60,11 +70,12 @@ CCPoint Hexagon2CCP (Hexagon& h)
 void HelloWorld::draw()
 {
     CCLayer::draw();
+	back_fields.draw();
     fields.draw();
     touch_field.draw();
 }
 
-HelloWorld::HelloWorld() :fields (20), touch_field (20)
+HelloWorld::HelloWorld() :fields(20), touch_field(20), back_fields(20)
 {
 
 }

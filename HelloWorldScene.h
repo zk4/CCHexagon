@@ -25,6 +25,7 @@ public:
     virtual void ccTouchCancelled (CCTouch *pTouch, CCEvent *pEvent);
     void draw();
     Hexagones   fields;
+	Hexagones   back_fields;
     Hexagones  touch_field;
 };
 

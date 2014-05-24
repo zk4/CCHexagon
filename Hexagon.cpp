@@ -8,12 +8,12 @@ Hexagon Hexagon::directions[Hexagon::eDirection::COUNT] =
 
 int Hexagon::distance (Hexagon& h)
 {
-    return max (max (abs (x - h.x), abs (y - h.y)), abs (z - h.z));
+    return max (max (abs (q - h.q), abs (r - h.r)), abs (y() - h.y()));
 }
 
-Hexagon::Hexagon (int x_ /*= 0*/, int y_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) :x (x_), y (y_), color (color_)
+Hexagon::Hexagon (int x_ /*= 0*/, int y_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) :q (x_), r (y_), color (color_)
 {
-    z = x - y;
+   
 }
 
 Hexagon::Hexagon (const Hexagon& h)
@@ -25,26 +25,25 @@ Hexagon::eDirection Hexagon::Towards (const Hexagon& h) const
 {
     bool bX = false, bY = false, bZ = false;
     Hexagon dir = *this - h;
-    int aX = abs (dir.x);
-    int aY = abs (dir.y);
-    int aZ = abs (dir.z);
-    if (aX > abs (dir.y))
+    int aX = abs (dir.q);
+    int aY = abs (dir.r);
+    int aZ = abs (dir.y());
+    if (aX > abs (dir.r))
     {
         if (aY > aZ)
         {
-            if (dir.x)
-                dir.x /= aX;
-            if (dir.y)
-                dir.y /= aY;
-            dir.z = 0;
+            if (dir.q)
+                dir.q /= aX;
+            if (dir.r)
+                dir.r /= aY;
+            
         }
         else
         {
-            if (dir.x)
-                dir.x /= aX;
-            if (dir.z)
-                dir.z /= aZ;
-            dir.y = 0;
+            if (dir.q)
+                dir.q /= aX;
+            
+            dir.r = 0;
 
         }
     }
@@ -52,19 +51,18 @@ Hexagon::eDirection Hexagon::Towards (const Hexagon& h) const
     {
         if (aX > aZ)
         {
-            if (dir.x)
-                dir.x /= aX;
-            if (dir.y)
-                dir.y /= aY;
-            dir.z = 0;
+            if (dir.q)
+                dir.q /= aX;
+            if (dir.r)
+                dir.r /= aY;
+            
         }
         else
         {
-            if (dir.y)
-                dir.y /= aY;
-            if (dir.z)
-                dir.z /= aZ;
-            dir.x = 0;
+            if (dir.r)
+                dir.r /= aY;
+            
+            dir.q = 0;
 
         }
     }
@@ -109,13 +107,13 @@ cocos2d::CCPoint Hexagon::getPixelLocation (int length, CCPoint zeroPoint, bool 
 {
     CCPoint center;
     float step = length* 1.5f;
-    center.y = step *  y + zeroPoint.y;
+    center.y = step *  r + zeroPoint.y;
     //speed it up
     static float C = cos (M_PI / 3);
     static float T = tan (2 * M_PI / 3);
 
 
-    center.x = (step *y - step *x / C) / T + zeroPoint.x;
+    center.x = (step *r - step *q / C) / T + zeroPoint.x;
     return center;
 }
 
