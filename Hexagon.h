@@ -32,17 +32,19 @@ public:
         COUNT
     };
     static  Hexagon directions[eDirection::COUNT];
-	void interilze();
+	
 	float y()const { return -q - r; };
 	
     Hexagon (const Hexagon& h);
 	Hexagon(float x_ = 0, float y_ = 0, ccColor4F color = ccc4f(1, 1, 1, 1));
     
-	void draw(int length, CCPoint center);
-	float distance(Hexagon& h);
+	void				draw(int length, CCPoint center);
+	float				Distance(Hexagon& h);
     Hexagon::eDirection Towards (const Hexagon& h)const ;
-	Hexagon round();
-    Hexagon& Move (Hexagon::eDirection dir, int times=1);
+	Hexagon				Round();
+    Hexagon&			Move (Hexagon::eDirection dir, int times=1);
+	void				Integerilze();
+	void				Normalize();
 
     inline Hexagon operator- (const Hexagon& h) const
     {
@@ -69,6 +71,25 @@ public:
     
         return *this;
     }
+	inline Hexagon& operator/= (const float scale)
+	{
+		assert(scale != 0);
+		if (scale!=0)
+		{
+			q /= scale;
+			r /= scale;
+		}
+
+		return *this;
+	}
+	inline Hexagon& operator*= (const float scale)
+	{
+
+		q *= scale;
+		r *= scale;
+		 
+		return *this;
+	}
     inline Hexagon& operator-= (const Hexagon& h)
     {
 
@@ -98,24 +119,26 @@ public:
 
     inline Hexagon operator/ (float f) const
     {
+		assert(f != 0);
         Hexagon p;
-        p.q = q / f;
-        p.r = r / f;
+		
+		if (f!=0)
+		{
+			p.q = q / f;
+			p.r = r / f;
+		}
        
         return p;
     }
 
     inline bool operator != (const Hexagon& a) const
     {
-        return a.q != this->q || a.r != this->r || a.y() != this->y();
+		return !(*this == a);
     }
 
     inline bool operator == (const Hexagon& a) const
     {
-        return a.q == this->q && a.r == this->r ;
+        return (abs(a.q- this->q)<0.001f) && (abs(a.r - this->r)<0.001f) ;
     }
  
-   /* CCPoint getPixelLocation (int length, CCPoint zeroPoint );
-    static Hexagon getHexagon (int length, CCPoint zeroPoint, CCPoint center);
-	*/
 };

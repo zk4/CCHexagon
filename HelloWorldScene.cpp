@@ -9,7 +9,6 @@ CCScene* HelloWorld::scene()
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
 
-    // 'layer' is an autorelease object
     HelloWorld *layer = HelloWorld::create();
 
     // add layer as a child to scene
@@ -31,7 +30,17 @@ bool HelloWorld::init()
     CCSize s = CCDirector::sharedDirector()->getWinSize();
  
     field.zeroPoint = ccp (s.width / 2, s.height / 2);
-    
+
+	HexCoordinate h;
+	CCBeeHive::MakeRing(1, ZeroHexagon, h.hexagones, ccc4f(0, 1, 1, 1));
+	//test direction
+	for (auto&a :h.hexagones )
+	{
+		CCLOG("0,0 ->%f,%f direction is %d\n",a.q,a.r, ZeroHexagon.Towards(a));
+	}
+	
+
+
 	CCBeeHive::MakeLine(Hexagon(-15, 10), Hexagon( 15,-15), field.hexagones,ccc4f(1,0,0,1));
 	CCBeeHive::MakeCross(3, Hexagon(10, 10), field.hexagones, ccc4f(1, 1, 0, 1));
 	CCBeeHive::MakeHexagons(3, Hexagon(-10, 10), field.hexagones, ccc4f(1, 0, 1, 1));
@@ -64,9 +73,9 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
    
 	//touch_field.hexagones.clear();
-	Hexagon h = field.PixToHex(this->convertTouchToNodeSpace(pTouch));
+	Hexagon h = field.ccpToHex(this->convertTouchToNodeSpace(pTouch));
 	h.color = ccc4f(1, 0, 1, 1);
-	h.interilze();
+	h.Integerilze();
 	field.hexagones.push_back(h);
 }
 
@@ -75,24 +84,16 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
 	//touch_field.hexagones.clear();
-	Hexagon h = field.PixToHex(this->convertTouchToNodeSpace(pTouch));
+	Hexagon h = field.ccpToHex(this->convertTouchToNodeSpace(pTouch));
 	h.color = ccc4f(1, 0, 1, 1);
-	h.interilze();
+	h.Integerilze();
 	field.hexagones.push_back(h);
-	/*  int idx = fields.Contains (this->convertTouchToNodeSpace (pTouch));
-	  if (idx != -1)
-	  {
-
-	  touch_field.hexagones.push_back (fields.hexagones[idx]);
-	  touch_field.hexagones[0].color = ccc4f (1, 0, 1, 1);
-
-	  }*/
+ 
     return true;
 }
 
 void HelloWorld::onEnter()
 {
-
     CCLayer::onEnter();
     setTouchEnabled (true);
 }

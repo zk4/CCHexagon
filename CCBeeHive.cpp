@@ -95,13 +95,13 @@ void CCBeeHive::MakeIntersectRange(int radius, const Hexagon& center, vector<Hex
 void CCBeeHive::MakeLine(Hexagon& start, Hexagon& end, vector<Hexagon>& line, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
 {
 	 
-	float N = start.distance(end);
+	float N = start.Distance(end);
 
 	for (int i = 0; i <= N; ++i)
 	{
 		Hexagon h1 = start * (1 - i / N);
 		Hexagon h2 = end * i / N;
-		Hexagon  h = (h1 + h2).round();
+		Hexagon  h = (h1 + h2).Round();
 		h.color = color;
 		line.push_back(h);
 	}

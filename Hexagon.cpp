@@ -9,7 +9,7 @@ Hexagon Hexagon::directions[Hexagon::eDirection::COUNT] =
 };
 
 
-float Hexagon::distance(Hexagon& h)
+float Hexagon::Distance(Hexagon& h)
 {
     return max (max (abs (q - h.q), abs (r - h.r)), abs (y() - h.y()));
 }
@@ -24,51 +24,11 @@ Hexagon::Hexagon (const Hexagon& h)
     *this = h;
 }
 
-Hexagon::eDirection Hexagon::Towards (const Hexagon& h) const
+Hexagon::eDirection Hexagon::Towards (const Hexagon& target) const
 {
-    bool bX = false, bY = false, bZ = false;
-    Hexagon dir = *this - h;
-	float aX = abs(dir.q);
-	float aZ = abs(dir.r);
-	float aY = abs(dir.y());
-    if (aX > abs (dir.r))
-    {
-        if (aZ > aY)
-        {
-            if (dir.q)
-                dir.q /= aX;
-            if (dir.r)
-                dir.r /= aZ;
-            
-        }
-        else
-        {
-            if (dir.q)
-                dir.q /= aX;
-            
-            dir.r = 0;
-
-        }
-    }
-    else
-    {
-        if (aX > aY)
-        {
-            if (dir.q)
-                dir.q /= aX;
-            if (dir.r)
-                dir.r /= aZ;
-            
-        }
-        else
-        {
-            if (dir.r)
-                dir.r /= aZ;
-            
-            dir.q = 0;
-
-        }
-    }
+	Hexagon dir = target - *this;
+	dir.Round();
+	dir.Normalize();
     for (int i = 0; i < eDirection::COUNT; ++i)
     {
         if (dir == directions[i])
@@ -100,7 +60,7 @@ void Hexagon::draw(int length, CCPoint center)
 
  
 
-Hexagon Hexagon::round( )
+Hexagon Hexagon::Round( )
 {
 	//DDA algorith
 	float rx = std::round(q);
@@ -121,10 +81,18 @@ Hexagon Hexagon::round( )
 	return Hexagon(rx, rz);
 }
 
-void Hexagon::interilze()
+void Hexagon::Integerilze()
 {
 	 q = std::round(q);
 	 r = std::round(r);
 
+}
+
+void Hexagon::Normalize()
+{
+	if (q!=0)
+	q /= abs(q);
+	if (r!=0)
+	r /= abs(r);
 }
 
