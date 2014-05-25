@@ -82,7 +82,7 @@ Hexagon& Hexagon::Move (eDirection dir, int times)
     *this += (directions[dir] * times);
     return *this;
 }
-void Hexagon::draw2(int length, CCPoint center)
+void Hexagon::draw(int length, CCPoint center)
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -96,16 +96,6 @@ void Hexagon::draw2(int length, CCPoint center)
 
 			);
 	}
-}
-
-
-
-
-void Hexagon::draw (int length, CCPoint zeroPoint )
-{
-	 
-	//draw2(length, getPixelLocation(length, zeroPoint));
-    
 }
 
  
@@ -133,8 +123,8 @@ Hexagon Hexagon::round( )
 
 void Hexagon::interilze()
 {
-	q = (int)q;
-	r = (int)r;
+	 q = std::round(q);
+	 r = std::round(r);
 
 }
 

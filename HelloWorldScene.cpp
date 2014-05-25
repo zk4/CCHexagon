@@ -1,21 +1,9 @@
 #include "HelloWorldScene.h"
-
 #include "Hexagon.h"
-
 #include "CCBeeHive.h"
 
 USING_NS_CC;
-class BP :public Hexagon
-{
-public:
-    inline BP& operator= (const BP& r)
-    {
-        q = r.q;
-        return *this;
-    }
-    int q;
-
-};
+ 
 CCScene* HelloWorld::scene()
 {
     // 'scene' is an autorelease object
@@ -41,56 +29,33 @@ bool HelloWorld::init()
         return false;
     }
     CCSize s = CCDirector::sharedDirector()->getWinSize();
-    HexCoordinate fields1 (5);
-    fields.zeroPoint = ccp (s.width / 2, s.height / 2);
+ 
+    field.zeroPoint = ccp (s.width / 2, s.height / 2);
     
-	CCBeeHive::MakeLine(Hexagon(-5, 0), Hexagon( 0,5), fields.hexagones);
-	 
-	 // fields.hexagones.push_back({ -4, 0 });
-	  //fields.hexagones.push_back({ -3, 0 });
-	 // fields.hexagones.push_back({ -2, 0 });
-	 // fields.hexagones.push_back({ -1, 0 });
-	// fields.hexagones.push_back({ 0,  -1, ccc4f(1, 0, 0, 1) });
-	// fields.hexagones.push_back({ 0,  1, ccc4f(1, 1, 0, 1) });
-	//fields.hexagones.push_back({ 5, -5 });
-	//fields.hexagones.push_back({ 5, 0 });
-	//fields.hexagones.push_back({ 0, 5 });
-	//fields.hexagones.push_back({ -5, 5 });
-	//fields.hexagones.push_back({ -5, 0 });
-	//for (auto & a : Hexagon::directions)
-	//{
-	//	fields.hexagones.push_back(a);
-	//}
-	
-	
-	/*CCBeeHive::MakeRing(1, ZeroHexagon, fields.hexagones);
-	 for (auto & a :fields.hexagones)
-	 {
-		 CCLOG("pointe is x:%d,y:%d\n", a.x, a.y);
-		 CCLOG("0 --> point is %d\n", ZeroHexagon.Towards(a));
-	 }*/
-	 
-    // CCBeeHive::MakeIntersectRange (3, ZeroHexagon.Move (Hexagon::L), fields1.hexagones, fields.hexagones);
+	CCBeeHive::MakeLine(Hexagon(-15, 10), Hexagon( 15,-15), field.hexagones,ccc4f(1,0,0,1));
+	CCBeeHive::MakeCross(3, Hexagon(10, 10), field.hexagones, ccc4f(1, 1, 0, 1));
+	CCBeeHive::MakeHexagons(3, Hexagon(-10, 10), field.hexagones, ccc4f(1, 0, 1, 1));
+	CCBeeHive::MakeRing(3, Hexagon(-10, -10), field.hexagones, ccc4f(0, 1, 1, 1));
+	CCBeeHive::MakeRings(3, 4, Hexagon(10, -10), field.hexagones, ccc4f(0, 0, 1, 1));
+
+	//behind 
+	field.hexagones.push_back(Hexagon(15, 15, ccc4f(0.5, 1, 0, 1)));
+
     setTouchMode (kCCTouchesOneByOne);
     return true;
 }
-
-CCPoint Hexagon2CCP (Hexagon& h)
-{
-    return ccp (0, 0);
-}
-
+ 
 
 
 void HelloWorld::draw()
 {
     CCLayer::draw();
  
-    fields.draw();
+    field.draw();
    
 }
 
-HelloWorld::HelloWorld() :fields(20) 
+HelloWorld::HelloWorld() :field(10) 
 {
 
 }
@@ -99,10 +64,10 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
    
 	//touch_field.hexagones.clear();
-	Hexagon h = fields.PixToHex(this->convertTouchToNodeSpace(pTouch));
+	Hexagon h = field.PixToHex(this->convertTouchToNodeSpace(pTouch));
 	h.color = ccc4f(1, 0, 1, 1);
 	h.interilze();
-	fields.hexagones.push_back(h);
+	field.hexagones.push_back(h);
 }
 
 
@@ -110,10 +75,10 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
 	//touch_field.hexagones.clear();
-	Hexagon h = fields.PixToHex(this->convertTouchToNodeSpace(pTouch));
+	Hexagon h = field.PixToHex(this->convertTouchToNodeSpace(pTouch));
 	h.color = ccc4f(1, 0, 1, 1);
 	h.interilze();
-	fields.hexagones.push_back(h);
+	field.hexagones.push_back(h);
 	/*  int idx = fields.Contains (this->convertTouchToNodeSpace (pTouch));
 	  if (idx != -1)
 	  {

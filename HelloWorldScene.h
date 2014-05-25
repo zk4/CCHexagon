@@ -24,7 +24,7 @@ public:
     virtual void ccTouchEnded (CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled (CCTouch *pTouch, CCEvent *pEvent);
     void draw();
-    HexCoordinate   fields;
+    HexCoordinate   field;
 	 
   //  HexCoordinate  touch_field;
 };

@@ -37,8 +37,8 @@ public:
 	
     Hexagon (const Hexagon& h);
 	Hexagon(float x_ = 0, float y_ = 0, ccColor4F color = ccc4f(1, 1, 1, 1));
-    void draw (int length, CCPoint zeroPoint );
-	void draw2(int length, CCPoint center);
+    
+	void draw(int length, CCPoint center);
 	float distance(Hexagon& h);
     Hexagon::eDirection Towards (const Hexagon& h)const ;
 	Hexagon round();
