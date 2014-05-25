@@ -2,7 +2,7 @@
 #include <cmath>
 using namespace std;
 
-Hexagon Hexagon::directions[Hexagon::eDirection::COUNT] =
+Hexagon Hexagon::s_directions[Hexagon::eDirection::COUNT] =
 {
     { 0, 0 }, { 1, 0 }, { 1, -1 }, { 0, -1 },
     { -1, 0 }, { -1, +1 }, { 0, 1 }
@@ -31,7 +31,7 @@ Hexagon::eDirection Hexagon::Towards (const Hexagon& target) const
 	dir.Normalize();
     for (int i = 0; i < eDirection::COUNT; ++i)
     {
-        if (dir == directions[i])
+        if (dir == s_directions[i])
             return eDirection (i);
     }
 
@@ -39,10 +39,10 @@ Hexagon::eDirection Hexagon::Towards (const Hexagon& target) const
 
 Hexagon& Hexagon::Move (eDirection dir, int times)
 {
-    *this += (directions[dir] * times);
+    *this += (s_directions[dir] * times);
     return *this;
 }
-void Hexagon::draw(int length, CCPoint center)
+void Hexagon::Draw(int length, CCPoint center)
 {
 	for (int i = 0; i < 6; ++i)
 	{

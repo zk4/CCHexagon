@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
 #include "Hexagon.h"
-#include "CCBeeHive.h"
+#include "BeeHive.h"
 
 USING_NS_CC;
  
@@ -32,7 +32,7 @@ bool HelloWorld::init()
     field.zeroPoint = ccp (s.width / 2, s.height / 2);
 
 	HexCoordinate h;
-	CCBeeHive::MakeRing(1, ZeroHexagon, h.hexagones, ccc4f(0, 1, 1, 1));
+	BeeHive::MakeRing(1, ZeroHexagon, h.hexagones, ccc4f(0, 1, 1, 1));
 	//test direction
 	for (auto&a :h.hexagones )
 	{
@@ -41,11 +41,11 @@ bool HelloWorld::init()
 	
 
 
-	CCBeeHive::MakeLine(Hexagon(-15, 10), Hexagon( 15,-15), field.hexagones,ccc4f(1,0,0,1));
-	CCBeeHive::MakeCross(3, Hexagon(10, 10), field.hexagones, ccc4f(1, 1, 0, 1));
-	CCBeeHive::MakeHexagons(3, Hexagon(-10, 10), field.hexagones, ccc4f(1, 0, 1, 1));
-	CCBeeHive::MakeRing(3, Hexagon(-10, -10), field.hexagones, ccc4f(0, 1, 1, 1));
-	CCBeeHive::MakeRings(3, 4, Hexagon(10, -10), field.hexagones, ccc4f(0, 0, 1, 1));
+	BeeHive::MakeLine(Hexagon(-15, 10), Hexagon( 15,-15), field.hexagones,ccc4f(1,0,0,1));
+	BeeHive::MakeCross(3, Hexagon(10, 10), field.hexagones, ccc4f(1, 1, 0, 1));
+	BeeHive::MakeHexagons(3, Hexagon(-10, 10), field.hexagones, ccc4f(1, 0, 1, 1));
+	BeeHive::MakeRing(3, Hexagon(-10, -10), field.hexagones, ccc4f(0, 1, 1, 1));
+	BeeHive::MakeRings(3, 4, Hexagon(10, -10), field.hexagones, ccc4f(0, 0, 1, 1));
 
 	//behind 
 	field.hexagones.push_back(Hexagon(15, 15, ccc4f(0.5, 1, 0, 1)));
@@ -72,7 +72,6 @@ HelloWorld::HelloWorld() :field(10)
 void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
    
-	//touch_field.hexagones.clear();
 	Hexagon h = field.ccpToHex(this->convertTouchToNodeSpace(pTouch));
 	h.color = ccc4f(1, 0, 1, 1);
 	h.Integerilze();
@@ -83,7 +82,6 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 
 bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
-	//touch_field.hexagones.clear();
 	Hexagon h = field.ccpToHex(this->convertTouchToNodeSpace(pTouch));
 	h.color = ccc4f(1, 0, 1, 1);
 	h.Integerilze();

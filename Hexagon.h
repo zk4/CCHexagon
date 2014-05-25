@@ -31,14 +31,14 @@ public:
         RB,
         COUNT
     };
-    static  Hexagon directions[eDirection::COUNT];
+    static  Hexagon s_directions[eDirection::COUNT];
 	
-	float y()const { return -q - r; };
+
 	
     Hexagon (const Hexagon& h);
 	Hexagon(float x_ = 0, float y_ = 0, ccColor4F color = ccc4f(1, 1, 1, 1));
-    
-	void				draw(int length, CCPoint center);
+	inline float		y()const { return -q - r; };
+	void				Draw(int length, CCPoint center);
 	float				Distance(Hexagon& h);
     Hexagon::eDirection Towards (const Hexagon& h)const ;
 	Hexagon				Round();
