@@ -6,19 +6,20 @@
 #include <iostream>
 
 #include "cocos2d.h"
-using namespace cocos2d;
 
+ 
+using namespace cocos2d;
 using namespace std;
 #define ZeroHexagon  Hexagon()
 class  Hexagon
 {
 public:
 
-    int q;  //x in cub coordinate
-    int r;  //z in cub coordinate
+    float q;  //x in cub coordinate
+	float r;  //z in cub coordinate
      
     ccColor4F color;
-
+ 
     enum eDirection
     {
         C,
@@ -31,14 +32,18 @@ public:
         COUNT
     };
     static  Hexagon directions[eDirection::COUNT];
-
-	int y()const { return -q - r; };
+	void interilze();
+	float y()const { return -q - r; };
+	
     Hexagon (const Hexagon& h);
-    Hexagon (int x_ = 0, int y_ = 0,ccColor4F color = ccc4f (1, 1, 1, 1));
-    void draw (int length, CCPoint zeroPoint , bool bPoint_top=true);
-    int distance (Hexagon& h);
+	Hexagon(float x_ = 0, float y_ = 0, ccColor4F color = ccc4f(1, 1, 1, 1));
+    void draw (int length, CCPoint zeroPoint );
+	void draw2(int length, CCPoint center);
+	float distance(Hexagon& h);
     Hexagon::eDirection Towards (const Hexagon& h)const ;
+	Hexagon round();
     Hexagon& Move (Hexagon::eDirection dir, int times=1);
+
     inline Hexagon operator- (const Hexagon& h) const
     {
         Hexagon p;
@@ -109,20 +114,8 @@ public:
     {
         return a.q == this->q && a.r == this->r ;
     }
-
-
-    //for Set
-    inline bool operator < (const Hexagon& a) const
-    {
-        return (a.q + a.r) < (this->q + this->r);
-
-    }
-    inline bool operator > (const Hexagon& a) const
-    {
-        return (a.q + a.r) > (this->q + this->r);
-
-    }
-
-    CCPoint getPixelLocation (int length, CCPoint zeroPoint, bool bPoint_top);
+ 
+   /* CCPoint getPixelLocation (int length, CCPoint zeroPoint );
     static Hexagon getHexagon (int length, CCPoint zeroPoint, CCPoint center);
+	*/
 };

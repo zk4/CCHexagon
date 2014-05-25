@@ -1,17 +1,20 @@
 #include "Hexagon.h"
+#include <cmath>
+using namespace std;
+
 Hexagon Hexagon::directions[Hexagon::eDirection::COUNT] =
 {
-    { 0, 0 }, { 1, 0 }, { 1, 1 }, { 0, 1 },
-    { -1, 0 }, { -1, -1 }, { 0, -1 }
+    { 0, 0 }, { 1, 0 }, { 1, -1 }, { 0, -1 },
+    { -1, 0 }, { -1, +1 }, { 0, 1 }
 };
 
 
-int Hexagon::distance (Hexagon& h)
+float Hexagon::distance(Hexagon& h)
 {
     return max (max (abs (q - h.q), abs (r - h.r)), abs (y() - h.y()));
 }
 
-Hexagon::Hexagon (int x_ /*= 0*/, int y_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) :q (x_), r (y_), color (color_)
+Hexagon::Hexagon(float q_ /*= 0*/, float r_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) :q(q_), r(r_), color(color_)
 {
    
 }
@@ -25,17 +28,17 @@ Hexagon::eDirection Hexagon::Towards (const Hexagon& h) const
 {
     bool bX = false, bY = false, bZ = false;
     Hexagon dir = *this - h;
-    int aX = abs (dir.q);
-    int aY = abs (dir.r);
-    int aZ = abs (dir.y());
+	float aX = abs(dir.q);
+	float aZ = abs(dir.r);
+	float aY = abs(dir.y());
     if (aX > abs (dir.r))
     {
-        if (aY > aZ)
+        if (aZ > aY)
         {
             if (dir.q)
                 dir.q /= aX;
             if (dir.r)
-                dir.r /= aY;
+                dir.r /= aZ;
             
         }
         else
@@ -49,18 +52,18 @@ Hexagon::eDirection Hexagon::Towards (const Hexagon& h) const
     }
     else
     {
-        if (aX > aZ)
+        if (aX > aY)
         {
             if (dir.q)
                 dir.q /= aX;
             if (dir.r)
-                dir.r /= aY;
+                dir.r /= aZ;
             
         }
         else
         {
             if (dir.r)
-                dir.r /= aY;
+                dir.r /= aZ;
             
             dir.q = 0;
 
@@ -79,54 +82,59 @@ Hexagon& Hexagon::Move (eDirection dir, int times)
     *this += (directions[dir] * times);
     return *this;
 }
-
-
-void Hexagon::draw (int length, CCPoint zeroPoint, bool bPoint_top/* = true*/)
+void Hexagon::draw2(int length, CCPoint center)
 {
+	for (int i = 0; i < 6; ++i)
+	{
+		float start_radian = M_PI / 3 * i + (M_PI / 6);
+		float end_radian = start_radian + M_PI / 3;
+ 
+		ccDrawColor4F(color.r, color.g, color.b, color.a);
+		ccDrawLine(
+			ccpAdd(ccp(cos(start_radian)*length, sin(start_radian)*length), center),
+			ccpAdd(ccp(cos(end_radian)*length, sin(end_radian)*length), center)
 
-    for (int i = 0; i < 6; ++i)
-    {
-        float start_radian = M_PI / 3 * i + (bPoint_top ? M_PI / 6 : 0);
-        float end_radian = start_radian + M_PI / 3;
-
-        CCPoint center = getPixelLocation (length, zeroPoint, bPoint_top);
-
-        ccDrawColor4F (color.r, color.g, color.b, color.a);
-        ccDrawLine (
-            ccpAdd (ccp (cos (start_radian)*length, sin (start_radian)*length), center),
-            ccpAdd (ccp (cos (end_radian)*length, sin (end_radian)*length), center)
-
-        );
-    }
+			);
+	}
 }
 
 
 
 
-cocos2d::CCPoint Hexagon::getPixelLocation (int length, CCPoint zeroPoint, bool bPoint_top)
+void Hexagon::draw (int length, CCPoint zeroPoint )
 {
-    CCPoint center;
-    float step = length* 1.5f;
-    center.y = step *  r + zeroPoint.y;
-    //speed it up
-    static float C = cos (M_PI / 3);
-    static float T = tan (2 * M_PI / 3);
-
-
-    center.x = (step *r - step *q / C) / T + zeroPoint.x;
-    return center;
+	 
+	//draw2(length, getPixelLocation(length, zeroPoint));
+    
 }
 
-Hexagon Hexagon::getHexagon (int length, CCPoint zeroPoint, CCPoint center)
+ 
+
+Hexagon Hexagon::round( )
 {
-    //speed it up
-    static float C = cos (M_PI / 3);
-    static float T = tan (2 * M_PI / 3);
+	//DDA algorith
+	float rx = std::round(q);
+	float ry = std::round(y());
+	float rz = std::round(r);
 
+	float x_diff = abs(rx - q);
+	float y_diff = abs(ry - y());
+	float z_diff = abs(rz - r);
 
-    float step = length* 1.5f;
-    float y = (center.y - zeroPoint.y) / step;
-    float x = (((center.x - zeroPoint.x)*T - step* y)* (-C)) / step;
-    return Hexagon (x, y);
+	if ((x_diff > y_diff) && (x_diff > z_diff))
+		rx = -ry - rz;
+	else if (y_diff > z_diff)
+		ry = -rx - rz;
+	else
+		rz = -rx - ry;
+
+	return Hexagon(rx, rz);
+}
+
+void Hexagon::interilze()
+{
+	q = (int)q;
+	r = (int)r;
+
 }
 

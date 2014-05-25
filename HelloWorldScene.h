@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-#include "Hexagones.h"
+#include "HexCoordinate.h"
 #include  <vector>
 using namespace std;
 class HelloWorld : public cocos2d::CCLayer
@@ -24,9 +24,9 @@ public:
     virtual void ccTouchEnded (CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled (CCTouch *pTouch, CCEvent *pEvent);
     void draw();
-    Hexagones   fields;
-	Hexagones   back_fields;
-    Hexagones  touch_field;
+    HexCoordinate   fields;
+	 
+  //  HexCoordinate  touch_field;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

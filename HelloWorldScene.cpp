@@ -41,12 +41,27 @@ bool HelloWorld::init()
         return false;
     }
     CCSize s = CCDirector::sharedDirector()->getWinSize();
-    Hexagones fields1 (5);
+    HexCoordinate fields1 (5);
     fields.zeroPoint = ccp (s.width / 2, s.height / 2);
-    touch_field.zeroPoint = ccp (s.width / 2, s.height / 2);
-	CCBeeHive::MakeHexagons(20,  ZeroHexagon, fields.hexagones);
-	back_fields.zeroPoint = ccp(s.width / 2 - 10 * powf(3, 0.5), s.height / 2 );
-	CCBeeHive::MakeHexagons(20, ZeroHexagon, back_fields.hexagones,ccc4f(1,0,0,1));
+    
+	CCBeeHive::MakeLine(Hexagon(-5, 0), Hexagon( 0,5), fields.hexagones);
+	 
+	 // fields.hexagones.push_back({ -4, 0 });
+	  //fields.hexagones.push_back({ -3, 0 });
+	 // fields.hexagones.push_back({ -2, 0 });
+	 // fields.hexagones.push_back({ -1, 0 });
+	// fields.hexagones.push_back({ 0,  -1, ccc4f(1, 0, 0, 1) });
+	// fields.hexagones.push_back({ 0,  1, ccc4f(1, 1, 0, 1) });
+	//fields.hexagones.push_back({ 5, -5 });
+	//fields.hexagones.push_back({ 5, 0 });
+	//fields.hexagones.push_back({ 0, 5 });
+	//fields.hexagones.push_back({ -5, 5 });
+	//fields.hexagones.push_back({ -5, 0 });
+	//for (auto & a : Hexagon::directions)
+	//{
+	//	fields.hexagones.push_back(a);
+	//}
+	
 	
 	/*CCBeeHive::MakeRing(1, ZeroHexagon, fields.hexagones);
 	 for (auto & a :fields.hexagones)
@@ -70,44 +85,43 @@ CCPoint Hexagon2CCP (Hexagon& h)
 void HelloWorld::draw()
 {
     CCLayer::draw();
-	back_fields.draw();
+ 
     fields.draw();
-    touch_field.draw();
+   
 }
 
-HelloWorld::HelloWorld() :fields(20), touch_field(20), back_fields(20)
+HelloWorld::HelloWorld() :fields(20) 
 {
 
 }
 
 void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
-    touch_field.hexagones.clear();
-    int idx = fields.Contains (this->convertTouchToNodeSpace (pTouch));
-    if (idx != -1)
-    {
-
-        touch_field.hexagones.push_back (fields.hexagones[idx]);
-        touch_field.hexagones[0].color = ccc4f (0, 1, 0, 1);
-
-    }
-
-
+   
+	//touch_field.hexagones.clear();
+	Hexagon h = fields.PixToHex(this->convertTouchToNodeSpace(pTouch));
+	h.color = ccc4f(1, 0, 1, 1);
+	h.interilze();
+	fields.hexagones.push_back(h);
 }
 
 
 
 bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
+	//touch_field.hexagones.clear();
+	Hexagon h = fields.PixToHex(this->convertTouchToNodeSpace(pTouch));
+	h.color = ccc4f(1, 0, 1, 1);
+	h.interilze();
+	fields.hexagones.push_back(h);
+	/*  int idx = fields.Contains (this->convertTouchToNodeSpace (pTouch));
+	  if (idx != -1)
+	  {
 
-    int idx = fields.Contains (this->convertTouchToNodeSpace (pTouch));
-    if (idx != -1)
-    {
+	  touch_field.hexagones.push_back (fields.hexagones[idx]);
+	  touch_field.hexagones[0].color = ccc4f (1, 0, 1, 1);
 
-        touch_field.hexagones.push_back (fields.hexagones[idx]);
-        touch_field.hexagones[0].color = ccc4f (1, 0, 1, 1);
-
-    }
+	  }*/
     return true;
 }
 
@@ -120,12 +134,12 @@ void HelloWorld::onEnter()
 
 void HelloWorld::ccTouchEnded (CCTouch *pTouch, CCEvent *pEvent)
 {
-    touch_field.hexagones.clear();
+  
 }
 
 void HelloWorld::ccTouchCancelled (CCTouch *pTouch, CCEvent *pEvent)
 {
-    touch_field.hexagones.clear();
+
 }
 
 
