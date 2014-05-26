@@ -22,6 +22,7 @@ struct HexCoordinate
     Hexagon				CCP2Hex       (cocos2d::CCPoint  p)const;
     bool                Find          (const Hexagon& target)const;
 
+    void		CopyCoordinate (HexCoordinate& c);
     //make factory
     void                MakeRect      (int width, int height, const Hexagon& lb, ccColor4F color  = ccc4f (1, 1, 1, 1) );
     void                MakeLine      (const Hexagon& start, const Hexagon& end, ccColor4F color = ccc4f (1, 1, 1, 1));

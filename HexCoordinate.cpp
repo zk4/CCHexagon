@@ -20,9 +20,6 @@ HexCoordinate::HexCoordinate (float length_, CCPoint zeroPoint_ /*= CCPointZero*
     matrix (m_)
 {}
 
-
-//static CCAffineTransform hexMatrix = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f };
-//static CCAffineTransform revert_hexMatrix = CCAffineTransformInvert (hexMatrix);
 cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 {
     h *= length;
@@ -84,6 +81,14 @@ void HexCoordinate::MakeRect (int width, int height, const Hexagon& lb, ccColor4
 void HexCoordinate::setMatrix (CCAffineTransform& m)
 {
     matrix=m;
+}
+
+
+void HexCoordinate::CopyCoordinate (HexCoordinate& c)
+{
+    c.length=length;
+    c.zeroPoint=zeroPoint;
+    c.matrix=matrix;
 }
 
 
