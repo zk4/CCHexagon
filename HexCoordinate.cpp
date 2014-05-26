@@ -32,62 +32,52 @@ Hexagon HexCoordinate::CCP2Hex (CCPoint  p)
 {
     CCPoint pp = CCPointApplyAffineTransform (ccpSub (p, zeroPoint) / length, revert_hexMatrix);
     return Hexagon (pp.x, pp.y);
-
 }
 
 
 
-void HexCoordinate::MakeSolidHex (int radius, const Hexagon& center,  ccColor4F color)
+void HexCoordinate::MakeSolidHex (int radius, const Hexagon& center, ccColor4F color)
 {
-
     BeeHive::MakeSolidHex (radius, center, hexagones, color);
 }
 
-void HexCoordinate::MakeRingHex (int radius, const Hexagon& center,  ccColor4F color)
+void HexCoordinate::MakeRingHex (int radius, const Hexagon& center, ccColor4F color)
 {
-
-
-    BeeHive::MakeRingHex (radius,   center, hexagones, color);
-
+    BeeHive::MakeRingHex (radius, center, hexagones, color);
 }
 
-void HexCoordinate::MakeRingHexes (int inner, int outter, const Hexagon& center,   ccColor4F color)
+void HexCoordinate::MakeRingHexes (int inner, int outter, const Hexagon& center, ccColor4F color)
 {
-
     BeeHive::MakeRingHexes (inner, outter, center, hexagones, color);
 }
 
 
 
-void HexCoordinate::MakeCross (int radius, const Hexagon& center,   ccColor4F color)
+void HexCoordinate::MakeCross (int radius, const Hexagon& center, ccColor4F color)
 {
-
-
     BeeHive::MakeCross (radius, center, hexagones, color);
 }
 
-void HexCoordinate::InterSect ( const vector<Hexagon>& src)
+void HexCoordinate::InterSect (const vector<Hexagon>& src)
 {
-
     BeeHive::InterSect (hexagones, src);
 }
 
-bool HexCoordinate::Find (  const Hexagon& target)
+bool HexCoordinate::Find (const Hexagon& target) const
 {
     return   BeeHive::Find (hexagones, target);
 }
 
 
 
-void HexCoordinate::MakeLine (const Hexagon& start, const Hexagon& end,  ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
+void HexCoordinate::MakeLine (const Hexagon& start, const Hexagon& end, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
 {
-    BeeHive::MakeLine (start, end , hexagones, color);
+    BeeHive::MakeLine (start, end, hexagones, color);
 }
 
-void HexCoordinate::MakeRect (int width, int height, const Hexagon& lb,  ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
+void HexCoordinate::MakeRect (int width, int height, const Hexagon& lb, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
 {
-    BeeHive::MakeRect (width,height,lb,hexagones,color);
-
+    BeeHive::MakeRect (width, height, lb, hexagones, color);
 }
 
 

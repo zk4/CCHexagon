@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <float.h>
 
 #include "cocos2d.h"
 
@@ -153,7 +154,7 @@ public:
 
     inline bool operator == (const Hexagon& a) const
     {
-        return (abs (a.q- this->q)<0.001f) && (abs (a.r - this->r)<0.001f) ;
+        return (abs (a.q - this->q)<FLT_EPSILON) && (abs (a.r - this->r)<FLT_EPSILON);
     }
 
 };
