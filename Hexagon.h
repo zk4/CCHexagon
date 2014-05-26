@@ -48,7 +48,7 @@ public:
     Hexagon::eDirection Towards (const Hexagon& h)const ;
     Hexagon				Mirror (const Hexagon& mirror_hex)const;
     Hexagon				Round() const;
-    void				Integerilze();
+    void				Integerlize();
     void				Normalize();
     Hexagon&			Move (Hexagon::eDirection dir, int times=1);
     Hexagon&			Color (const ccColor4F& color);
