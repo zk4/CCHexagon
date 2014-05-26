@@ -28,7 +28,7 @@ cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
     return CCPointApplyAffineTransform (ccp (h.q, h.r), hexMatrix);
 }
 
-Hexagon HexCoordinate::CCP2Hex (CCPoint  p)
+Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
 {
     CCPoint pp = CCPointApplyAffineTransform (ccpSub (p, zeroPoint) / length, revert_hexMatrix);
     return Hexagon (pp.x, pp.y);

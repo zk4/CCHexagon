@@ -15,7 +15,7 @@ struct HexCoordinate
 
     void				draw	      ();
     cocos2d::CCPoint	Hex2CCP       (Hexagon  h) const;
-    Hexagon				CCP2Hex       (cocos2d::CCPoint  p);
+    Hexagon				CCP2Hex       (cocos2d::CCPoint  p)const;
     bool                Find          (const Hexagon& target)const;
 
     //make factory
