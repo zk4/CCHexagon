@@ -96,5 +96,10 @@ void HexCoordinate::MakeRect2 (int width, int height, const Hexagon& lb, ccColor
     BeeHive::MakeRect2 (width, height, lb, hexagones, color);
 }
 
+void HexCoordinate::MakeFan (const Hexagon& circile_center, const Hexagon& arc_center, const Hexagon& arc_left, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
+{
+    BeeHive::MakeFan (circile_center, arc_center, arc_left, hexagones, color);
+}
+
 
 

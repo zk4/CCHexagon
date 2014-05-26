@@ -46,11 +46,12 @@ public:
     void				Draw (int length, CCPoint center);
     float				Distance (const Hexagon& h) const;
     Hexagon::eDirection Towards (const Hexagon& h)const ;
+    Hexagon				Mirror (const Hexagon& mirror_hex)const;
     Hexagon				Round() const;
     void				Integerilze();
     void				Normalize();
     Hexagon&			Move (Hexagon::eDirection dir, int times=1);
-
+    Hexagon&			Color (const ccColor4F& color);
     inline int					ix() const
     {
         return round (q);

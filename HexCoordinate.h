@@ -13,7 +13,7 @@ struct HexCoordinate
     vector<Hexagon>  hexagones;
     CCAffineTransform matrix;
 
-    HexCoordinate (float length_ = 20, cocos2d::CCPoint zeroPoint_ = CCPointZero, CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f });
+    HexCoordinate (float length_ = 10, cocos2d::CCPoint zeroPoint_ = CCPointZero, CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f });
 
     void				setMatrix (CCAffineTransform& m);
 
@@ -32,6 +32,9 @@ struct HexCoordinate
     void                MakeRingHexes (int inner, int outter, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeRingHex   (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeSolidHex  (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
+    void				MakeFan		  (const Hexagon& circile_center, const Hexagon& arc_center, const Hexagon& arc_left,  ccColor4F color = ccc4f (1, 1, 1, 1));
+
+
 };
 
 

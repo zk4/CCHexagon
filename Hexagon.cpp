@@ -96,4 +96,16 @@ void Hexagon::Normalize()
         r /= abs (r);
 }
 
+Hexagon Hexagon::Mirror (const Hexagon& mirror) const
+{
+    return Hexagon (mirror.q + mirror.q - q, mirror.r + mirror.r - r).Color (color);
+
+}
+
+Hexagon& Hexagon::Color (const ccColor4F& color)
+{
+    this->color=color;
+    return *this;
+}
+
 

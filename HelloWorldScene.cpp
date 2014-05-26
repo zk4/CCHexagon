@@ -50,6 +50,10 @@ bool HelloWorld::init()
     //behind
 
     field.MakeRect2 (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
+
+    field.hexagones.push_back (Hexagon (20,10, ccc4f (1, 1, 0.5, 1)));
+    field.hexagones.push_back (field.hexagones.rbegin()->Mirror (ZeroHexagon));
+
     // HexCoordinate for_intersect;
     // for_intersect.MakeRect (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
     /*field.InterSect (for_intersect.hexagones);
@@ -70,7 +74,7 @@ void HelloWorld::draw()
 
 }
 
-HelloWorld::HelloWorld() :field (10), line (10)
+HelloWorld::HelloWorld() :field (), line ()
 {
 
 }
