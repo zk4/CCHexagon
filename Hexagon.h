@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <cmath>
 #include <float.h>
 
 #include "cocos2d.h"
@@ -52,15 +53,15 @@ public:
 
     inline int					ix() const
     {
-        return std::round (q);
+        return round (q);
     };
     inline int					iz() const
     {
-        return std::round (r);
+        return round (r);
     };
     inline int					iy() const
     {
-        return std::round (-q - r);
+        return round (-q - r);
     };
     inline Hexagon operator- (const Hexagon& h) const
     {
