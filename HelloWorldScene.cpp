@@ -29,8 +29,8 @@ bool HelloWorld::init()
     }
     CCSize s = CCDirector::sharedDirector()->getWinSize();
 
-    field.zeroPoint = ccp (s.width / 5, s.height / 2);
-    line.zeroPoint = ccp (s.width / 5, s.height / 2);
+    field.setZeroPoint (s.width / 2, s.height / 2);
+    line.setZeroPoint (s.width / 2, s.height / 2);
     HexCoordinate h;
     BeeHive::MakeRingHex (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
     //test direction
@@ -38,8 +38,6 @@ bool HelloWorld::init()
     {
         CCLOG ("0,0 ->%f,%f direction is %d\n",a.q,a.r, ZeroHexagon.Towards (a));
     }
-
-
 
     field.MakeLine (Hexagon (-15, 10), Hexagon (8, -15), ccc4f (1, 0, 0, 1));
     field.MakeCross (3, Hexagon (10, 10),   ccc4f (1, 1, 0, 1));

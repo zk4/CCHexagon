@@ -14,22 +14,24 @@ void HexCoordinate::draw()
 }
 
 
-HexCoordinate::HexCoordinate (float length_, CCPoint zeroPoint_ /*= CCPointZero*/,CCAffineTransform  m_) :
+HexCoordinate::HexCoordinate (float length_,  CCAffineTransform  m_) :
     length (length_),
-    zeroPoint (zeroPoint_),
     matrix (m_)
-{}
+{
+
+}
 
 cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 {
     h *= length;
-    return CCPointApplyAffineTransform (ccp (h.q, h.r), matrix) + zeroPoint;
+
+    return CCPointApplyAffineTransform (ccp (h.q, h.r), matrix) ;
 }
 
 Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
 {
-    CCPoint pp = CCPointApplyAffineTransform (ccpSub (p, zeroPoint) / length, CCAffineTransformInvert (matrix));
-    return Hexagon (pp.x, pp.y);
+    CCPoint pp = CCPointApplyAffineTransform (p , CCAffineTransformInvert (matrix));
+    return Hexagon (pp.x, pp.y) / length;
 }
 
 
@@ -87,13 +89,19 @@ void HexCoordinate::setMatrix (CCAffineTransform& m)
 void HexCoordinate::CopyCoordinate (HexCoordinate& c)
 {
     c.length=length;
-    c.zeroPoint=zeroPoint;
+
     c.matrix=matrix;
 }
 
 void HexCoordinate::MakeRect2 (int width, int height, const Hexagon& lb, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
 {
     BeeHive::MakeRect2 (width, height, lb, hexagones, color);
+}
+
+void HexCoordinate::setZeroPoint (int x, int y)
+{
+    matrix.tx=x;
+    matrix.ty=y;
 }
 
 
