@@ -29,8 +29,8 @@ bool HelloWorld::init()
     }
     CCSize s = CCDirector::sharedDirector()->getWinSize();
 
-    field.zeroPoint = ccp (s.width / 2, s.height / 2);
-    line.zeroPoint = ccp (s.width / 2, s.height / 2);
+    field.zeroPoint = ccp (s.width / 5, s.height / 2);
+    line.zeroPoint = ccp (s.width / 5, s.height / 2);
     HexCoordinate h;
     BeeHive::MakeRingHex (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
     //test direction
@@ -86,7 +86,7 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 
     Hexagon h = field.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
 
-    h.Integerilze();
+    h.Integerlize();
     line.MakeLine (line.hexagones[0], h, ccc4f (1, 0.5, 0.5, 1));
 
 }
@@ -97,7 +97,7 @@ bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
     Hexagon h = line.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
     h.color = ccc4f (1, 0, 1, 1);
-    h.Integerilze();
+    h.Integerlize();
     line.hexagones.push_back (h);
 
     return true;

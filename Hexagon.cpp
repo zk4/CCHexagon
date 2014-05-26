@@ -81,7 +81,7 @@ Hexagon Hexagon::Round() const
     return Hexagon (rx, rz);
 }
 
-void Hexagon::Integerilze()
+void Hexagon::Integerlize()
 {
     q = round (q);
     r = round (r);
