@@ -13,7 +13,7 @@ struct HexCoordinate
     vector<Hexagon>  hexagones;
     CCAffineTransform matrix;
 
-    HexCoordinate (float length_ = 20, cocos2d::CCPoint zeroPoint_ = CCPointZero, CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f });
+    HexCoordinate (float length_ = 20, cocos2d::CCPoint zeroPoint_ = CCPointZero, CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f, 0, 0 });
 
     void				setMatrix (CCAffineTransform& m);
 
