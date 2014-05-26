@@ -11,7 +11,11 @@ struct HexCoordinate
     cocos2d::CCPoint zeroPoint;
     float length;
     vector<Hexagon>  hexagones;
-    HexCoordinate (float length_=20, cocos2d::CCPoint zeroPoint_ = CCPointZero);
+    CCAffineTransform matrix;
+
+    HexCoordinate (float length_ = 20, cocos2d::CCPoint zeroPoint_ = CCPointZero, CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f });
+
+    void				setMatrix (CCAffineTransform& m);
 
     void				draw	      ();
     cocos2d::CCPoint	Hex2CCP       (Hexagon  h) const;

@@ -14,23 +14,24 @@ void HexCoordinate::draw()
 }
 
 
-HexCoordinate::HexCoordinate (float length_, CCPoint zeroPoint_ /*= CCPointZero*/) :
+HexCoordinate::HexCoordinate (float length_, CCPoint zeroPoint_ /*= CCPointZero*/,CCAffineTransform  m_) :
     length (length_),
-    zeroPoint (zeroPoint_)
+    zeroPoint (zeroPoint_),
+    matrix (m_)
 {}
 
 
-static CCAffineTransform hexMatrix = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f };
-static CCAffineTransform revert_hexMatrix = CCAffineTransformInvert (hexMatrix);
+//static CCAffineTransform hexMatrix = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f };
+//static CCAffineTransform revert_hexMatrix = CCAffineTransformInvert (hexMatrix);
 cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 {
     h *= length;
-    return CCPointApplyAffineTransform (ccp (h.q, h.r), hexMatrix);
+    return CCPointApplyAffineTransform (ccp (h.q, h.r), matrix);
 }
 
 Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
 {
-    CCPoint pp = CCPointApplyAffineTransform (ccpSub (p, zeroPoint) / length, revert_hexMatrix);
+    CCPoint pp = CCPointApplyAffineTransform (ccpSub (p, zeroPoint) / length, CCAffineTransformInvert (matrix));
     return Hexagon (pp.x, pp.y);
 }
 
@@ -78,6 +79,11 @@ void HexCoordinate::MakeLine (const Hexagon& start, const Hexagon& end, ccColor4
 void HexCoordinate::MakeRect (int width, int height, const Hexagon& lb, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
 {
     BeeHive::MakeRect (width, height, lb, hexagones, color);
+}
+
+void HexCoordinate::setMatrix (CCAffineTransform& m)
+{
+    matrix=m;
 }
 
 
