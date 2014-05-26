@@ -8,15 +8,15 @@ using namespace std;
 
 struct HexCoordinate
 {
-	cocos2d::CCPoint zeroPoint;
-	float length;
+    cocos2d::CCPoint zeroPoint;
+    float length;
     vector<Hexagon>  hexagones;
+    HexCoordinate (float length_=20, cocos2d::CCPoint zeroPoint_ = CCPointZero);
 
-	HexCoordinate(float length_=20, cocos2d::CCPoint zeroPoint_ = CCPointZero);
-    void draw();
-	cocos2d::CCPoint hex2ccp(  Hexagon  h) const;
-	Hexagon ccpToHex(  cocos2d::CCPoint  p);
-
+    void				draw	 ();
+    cocos2d::CCPoint	Hex2CCP  (Hexagon  h) const;
+    Hexagon				CCP2Hex (cocos2d::CCPoint  p);
+    bool				Contains (Hexagon& hex)const;
 };
 
 
