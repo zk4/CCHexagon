@@ -63,9 +63,9 @@ void Hexagon::Draw (int length, CCPoint center)
 Hexagon Hexagon::Round() const
 {
     //DDA algorithm
-    float rx = std::round (q);
-    float ry = std::round (y());
-    float rz = std::round (r);
+    float rx = round (q);
+    float ry = round (y());
+    float rz = round (r);
 
     float x_diff = abs (rx - q);
     float y_diff = abs (ry - y());
@@ -83,8 +83,8 @@ Hexagon Hexagon::Round() const
 
 void Hexagon::Integerilze()
 {
-    q = std::round (q);
-    r = std::round (r);
+    q = round (q);
+    r = round (r);
 
 }
 
