@@ -30,9 +30,9 @@ bool HelloWorld::init()
     CCSize s = CCDirector::sharedDirector()->getWinSize();
 
     field.zeroPoint = ccp (s.width / 2, s.height / 2);
-
+    line.zeroPoint = ccp (s.width / 2, s.height / 2);
     HexCoordinate h;
-    BeeHive::MakeRing (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
+    BeeHive::MakeRingHex (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
     //test direction
     for (auto&a :h.hexagones )
     {
@@ -41,16 +41,18 @@ bool HelloWorld::init()
 
 
 
-    BeeHive::MakeLine (Hexagon (-15, 10), Hexagon ( 8,-15), field.hexagones,ccc4f (1,0,0,1));
-    BeeHive::MakeCross (3, Hexagon (10, 10), field.hexagones, ccc4f (1, 1, 0, 1));
-    BeeHive::MakeHexagons (3, Hexagon (-10, 10), field.hexagones, ccc4f (1, 0, 1, 1));
-    BeeHive::MakeRing (3, Hexagon (-10, -10), field.hexagones, ccc4f (0, 1, 1, 1));
-    BeeHive::MakeRings (3, 4, Hexagon (10, -10), field.hexagones, ccc4f (0, 0, 1, 1));
-    BeeHive::MakeRect (10,5, Hexagon (24, -10), field.hexagones, ccc4f (1, 0, 0.5, 1));
+    field.MakeLine (Hexagon (-15, 10), Hexagon (8, -15), ccc4f (1, 0, 0, 1));
+    field.MakeCross (3, Hexagon (10, 10),   ccc4f (1, 1, 0, 1));
+    field.MakeSolidHex (3, Hexagon (-10, 10),   ccc4f (1, 0, 1, 1));
+    field.MakeRingHex (3, Hexagon (-10, -10),   ccc4f (0, 1, 1, 1));
+    field.MakeRingHexes (3, 4, Hexagon (10, -10),   ccc4f (0, 0, 1, 1));
+    field.MakeRect (10, 5, Hexagon (24, -10),   ccc4f (1, 0, 0.5, 1));
     //behind
-    vector<Hexagon>  for_intersect;
-    BeeHive::MakeRect (10, 5, Hexagon (10, -10), for_intersect, ccc4f (1, 0, 0.5, 1));
-    BeeHive::InterSect (field.hexagones, for_intersect );
+
+    field.MakeRect (10, 5, Hexagon (10, -10), ccc4f (1, 0, 0.5, 1));
+    HexCoordinate for_intersect;
+    for_intersect.MakeRect (10, 5, Hexagon (10, -10), ccc4f (1, 0, 0.5, 1));
+    field.InterSect (for_intersect.hexagones);
     field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));
 
     setTouchMode (kCCTouchesOneByOne);
@@ -64,31 +66,35 @@ void HelloWorld::draw()
     CCLayer::draw();
 
     field.draw();
+    line.draw();
 
 }
 
-HelloWorld::HelloWorld() :field (10)
+HelloWorld::HelloWorld() :field (10), line (10)
 {
 
 }
 
 void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
+    line.hexagones.erase (line.hexagones.begin() + 1, line.hexagones.end());
+
 
     Hexagon h = field.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
-    h.color = ccc4f (1, 0, 1, 1);
+
     h.Integerilze();
-    field.hexagones.push_back (h);
+    line.MakeLine (line.hexagones[0], h, ccc4f (1, 0.5, 0.5, 1));
+
 }
 
 
 
 bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
-    Hexagon h = field.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
+    Hexagon h = line.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
     h.color = ccc4f (1, 0, 1, 1);
     h.Integerilze();
-    field.hexagones.push_back (h);
+    line.hexagones.push_back (h);
 
     return true;
 }
@@ -101,12 +107,12 @@ void HelloWorld::onEnter()
 
 void HelloWorld::ccTouchEnded (CCTouch *pTouch, CCEvent *pEvent)
 {
-
+    line.hexagones.clear();
 }
 
 void HelloWorld::ccTouchCancelled (CCTouch *pTouch, CCEvent *pEvent)
 {
-
+    line.hexagones.clear();
 }
 
 

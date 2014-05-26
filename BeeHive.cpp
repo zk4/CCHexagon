@@ -1,6 +1,6 @@
 #include "BeeHive.h"
 
-void BeeHive::MakeHexagons (int radius, const Hexagon& center, vector<Hexagon>& hexagons, ccColor4F color)
+void BeeHive::MakeSolidHex (int radius, const Hexagon& center, vector<Hexagon>& hexagons, ccColor4F color)
 {
 
     for (int q = radius; q >= -radius; --q)
@@ -14,7 +14,7 @@ void BeeHive::MakeHexagons (int radius, const Hexagon& center, vector<Hexagon>& 
 
 }
 
-void BeeHive::MakeRing (int radius, const Hexagon& center, vector<Hexagon>& ring, ccColor4F color)
+void BeeHive::MakeRingHex (int radius, const Hexagon& center, vector<Hexagon>& ring, ccColor4F color)
 {
 
     for (int q = -radius; q <= radius; ++q)
@@ -34,11 +34,11 @@ void BeeHive::MakeRing (int radius, const Hexagon& center, vector<Hexagon>& ring
 
 }
 
-void BeeHive::MakeRings (int inner, int outter, const Hexagon& center, vector<Hexagon>& rings, ccColor4F color)
+void BeeHive::MakeRingHexes (int inner, int outter, const Hexagon& center, vector<Hexagon>& rings, ccColor4F color)
 {
     for (int i = inner; i <= outter; ++i)
     {
-        MakeRing (i, center, rings, color);
+        MakeRingHex (i, center, rings, color);
     }
 }
 
@@ -63,14 +63,17 @@ void BeeHive::MakeCross (int radius, const Hexagon& center, vector<Hexagon>& cro
 
 }
 
-void BeeHive::InterSect (vector<Hexagon>& des,const vector<Hexagon>& src, ccColor4F color)
+void BeeHive::InterSect (vector<Hexagon>& des,const vector<Hexagon>& src )
 {
     for (int i=des.size()-1; i>=0; --i)
     {
         for (auto &ss : src)
         {
             if (des[i] == ss)
+            {
                 des.erase (des.begin()+i);
+                break;
+            }
         }
     }
 }
@@ -91,7 +94,7 @@ void BeeHive::MakeLine (const Hexagon& start, const Hexagon& end, vector<Hexagon
 {
 
     float N = start.Distance (end);
-
+    if (N==0)return;
     for (int i = 0; i <= N; ++i)
     {
         Hexagon  h = (start * (1 - i / N) + end * i / N).Round();
@@ -107,7 +110,7 @@ void BeeHive::MakeRect (int width, int height, const Hexagon& lb, vector<Hexagon
     {
         for (int w = 0; w < width; ++w)
         {
-            rect.push_back ({ lb.q + h / 2 + w, lb.r - h });
+            rect.push_back ({ lb.q + h / 2 + w, lb.r - h, color });
         }
     }
 

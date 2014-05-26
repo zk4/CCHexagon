@@ -25,8 +25,8 @@ public:
     virtual void ccTouchCancelled (CCTouch *pTouch, CCEvent *pEvent);
     void draw();
     HexCoordinate   field;
-	 
-  //  HexCoordinate  touch_field;
+    HexCoordinate   line;
+    //  HexCoordinate  touch_field;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
