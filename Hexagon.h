@@ -38,7 +38,7 @@ public:
 
 
     Hexagon (const Hexagon& h);
-    Hexagon (float x_ = 0, float y_ = 0, ccColor4F color = ccc4f (1, 1, 1, 1));
+    Hexagon (float q_ = 0, float r_ = 0, ccColor4F color = ccc4f (1, 1, 1, 1));
     inline float		y()const
     {
         return -q - r;
@@ -158,4 +158,13 @@ public:
         return (abs (a.q - this->q)<FLT_EPSILON) && (abs (a.r - this->r)<FLT_EPSILON);
     }
 
+    inline bool operator <= (const Hexagon& a) const
+    {
+        return a.q + a.r <= this->q + this->r;
+    }
+
+    inline bool operator >= (const Hexagon& a) const
+    {
+        return a.q + a.r >= this->q + this->r;
+    }
 };
