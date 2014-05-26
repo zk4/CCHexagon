@@ -46,7 +46,7 @@ bool HelloWorld::init()
     BeeHive::MakeHexagons (3, Hexagon (-10, 10), field.hexagones, ccc4f (1, 0, 1, 1));
     BeeHive::MakeRing (3, Hexagon (-10, -10), field.hexagones, ccc4f (0, 1, 1, 1));
     BeeHive::MakeRings (3, 4, Hexagon (10, -10), field.hexagones, ccc4f (0, 0, 1, 1));
-
+    BeeHive::MakeRect (10,5, Hexagon (24, -10), field.hexagones, ccc4f (1, 0, 0.5, 1));
     //behind
     field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));
 
