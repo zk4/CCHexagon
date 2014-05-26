@@ -41,13 +41,16 @@ bool HelloWorld::init()
 
 
 
-    BeeHive::MakeLine (Hexagon (-15, 10), Hexagon ( 15,-15), field.hexagones,ccc4f (1,0,0,1));
+    BeeHive::MakeLine (Hexagon (-15, 10), Hexagon ( 8,-15), field.hexagones,ccc4f (1,0,0,1));
     BeeHive::MakeCross (3, Hexagon (10, 10), field.hexagones, ccc4f (1, 1, 0, 1));
     BeeHive::MakeHexagons (3, Hexagon (-10, 10), field.hexagones, ccc4f (1, 0, 1, 1));
     BeeHive::MakeRing (3, Hexagon (-10, -10), field.hexagones, ccc4f (0, 1, 1, 1));
     BeeHive::MakeRings (3, 4, Hexagon (10, -10), field.hexagones, ccc4f (0, 0, 1, 1));
     BeeHive::MakeRect (10,5, Hexagon (24, -10), field.hexagones, ccc4f (1, 0, 0.5, 1));
     //behind
+    vector<Hexagon>  for_intersect;
+    BeeHive::MakeRect (10, 5, Hexagon (10, -10), for_intersect, ccc4f (1, 0, 0.5, 1));
+    BeeHive::InterSect (field.hexagones, for_intersect );
     field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));
 
     setTouchMode (kCCTouchesOneByOne);

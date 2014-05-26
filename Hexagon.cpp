@@ -9,7 +9,7 @@ Hexagon Hexagon::s_directions[Hexagon::eDirection::COUNT] =
 };
 
 
-float Hexagon::Distance (Hexagon& h)
+float Hexagon::Distance (const Hexagon& h) const
 {
     return max (max (abs (q - h.q), abs (r - h.r)), abs (y() - h.y()));
 }
@@ -60,7 +60,7 @@ void Hexagon::Draw (int length, CCPoint center)
 
 
 
-Hexagon Hexagon::Round( )
+Hexagon Hexagon::Round() const
 {
     //DDA algorithm
     float rx = std::round (q);

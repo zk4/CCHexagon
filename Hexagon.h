@@ -42,9 +42,9 @@ public:
         return -q - r;
     };
     void				Draw (int length, CCPoint center);
-    float				Distance (Hexagon& h);
+    float				Distance (const Hexagon& h) const;
     Hexagon::eDirection Towards (const Hexagon& h)const ;
-    Hexagon				Round();
+    Hexagon				Round() const;
     void				Integerilze();
     void				Normalize();
     Hexagon&			Move (Hexagon::eDirection dir, int times=1);

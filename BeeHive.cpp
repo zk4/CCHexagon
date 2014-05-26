@@ -63,14 +63,14 @@ void BeeHive::MakeCross (int radius, const Hexagon& center, vector<Hexagon>& cro
 
 }
 
-void BeeHive::InterSect (vector<Hexagon>& des, vector<Hexagon>& src, vector<Hexagon>& out, ccColor4F color)
+void BeeHive::InterSect (vector<Hexagon>& des,const vector<Hexagon>& src, ccColor4F color)
 {
-    for (auto & dd : des)
+    for (int i=des.size()-1; i>=0; --i)
     {
         for (auto &ss : src)
         {
-            if (dd == ss)
-                out.push_back (dd);
+            if (des[i] == ss)
+                des.erase (des.begin()+i);
         }
     }
 }
@@ -87,16 +87,14 @@ bool BeeHive::Find (const vector<Hexagon>& src, const Hexagon& target)
 
 
 
-void BeeHive::MakeLine (Hexagon& start, Hexagon& end, vector<Hexagon>& line, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
+void BeeHive::MakeLine (const Hexagon& start, const Hexagon& end, vector<Hexagon>& line, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
 {
 
     float N = start.Distance (end);
 
     for (int i = 0; i <= N; ++i)
     {
-        Hexagon h1 = start * (1 - i / N);
-        Hexagon h2 = end * i / N;
-        Hexagon  h = (h1 + h2).Round();
+        Hexagon  h = (start * (1 - i / N) + end * i / N).Round();
         h.color = color;
         line.push_back (h);
     }
@@ -107,12 +105,7 @@ void BeeHive::MakeRect (int width, int height, const Hexagon& lb, vector<Hexagon
 
     for (int h = 0; h < height; ++h)
     {
-
-        /*      Hexagon left = lb;
-              left.q+=h/2;
-              left.r += (-h) ;*/
         for (int w = 0; w < width; ++w)
-
         {
             rect.push_back ({ lb.q + h / 2 + w, lb.r - h });
         }
