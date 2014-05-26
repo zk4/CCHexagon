@@ -158,13 +158,13 @@ public:
         return (abs (a.q - this->q)<FLT_EPSILON) && (abs (a.r - this->r)<FLT_EPSILON);
     }
 
-    inline bool operator <= (const Hexagon& a) const
+    inline bool operator < (const Hexagon& a) const
     {
-        return a.q + a.r <= this->q + this->r;
+        return a.q + a.r <  this->q + this->r;
     }
 
-    inline bool operator >= (const Hexagon& a) const
+    inline bool operator >  (const Hexagon& a) const
     {
-        return a.q + a.r >= this->q + this->r;
+        return a.q + a.r >  this->q + this->r;
     }
 };
