@@ -160,7 +160,7 @@ public:
 
     inline bool operator < (const Hexagon& a) const
     {
-        return this< &a;
+        return this->q < a.q || (this->q == a.q && this->r < a.r);
     }
 
     inline bool operator >  (const Hexagon& a) const
