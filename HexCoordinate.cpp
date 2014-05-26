@@ -9,7 +9,7 @@ void HexCoordinate::draw()
     for (auto& hexagon : hexagones)
     {
         CCPoint center = Hex2CCP (hexagon);
-        hexagon.Draw (length, center + zeroPoint);
+        hexagon.Draw (length, center );
     }
 }
 
@@ -23,7 +23,7 @@ HexCoordinate::HexCoordinate (float length_, CCPoint zeroPoint_ /*= CCPointZero*
 cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 {
     h *= length;
-    return CCPointApplyAffineTransform (ccp (h.q, h.r), matrix);
+    return CCPointApplyAffineTransform (ccp (h.q, h.r), matrix) + zeroPoint;
 }
 
 Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
@@ -95,6 +95,7 @@ void HexCoordinate::MakeRect2 (int width, int height, const Hexagon& lb, ccColor
 {
     BeeHive::MakeRect2 (width, height, lb, hexagones, color);
 }
+
 
 
 

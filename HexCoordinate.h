@@ -32,6 +32,8 @@ struct HexCoordinate
     void                MakeRingHexes (int inner, int outter, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeRingHex   (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeSolidHex  (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
+
+
 };
 
 

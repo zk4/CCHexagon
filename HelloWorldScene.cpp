@@ -29,8 +29,8 @@ bool HelloWorld::init()
     }
     CCSize s = CCDirector::sharedDirector()->getWinSize();
 
-    field.zeroPoint = ccp (s.width / 2, s.height / 2);
-    line.zeroPoint = ccp (s.width / 2, s.height / 2);
+    field.zeroPoint = ccp (s.width / 5, s.height / 2);
+    line.zeroPoint = ccp (s.width / 5, s.height / 2);
     HexCoordinate h;
     BeeHive::MakeRingHex (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
     //test direction
@@ -49,11 +49,15 @@ bool HelloWorld::init()
     field.MakeRect (10, 5, Hexagon (24, -10),   ccc4f (1, 0, 0.5, 1));
     //behind
 
-    field.MakeRect2 (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
-    // HexCoordinate for_intersect;
-    // for_intersect.MakeRect (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
-    /*field.InterSect (for_intersect.hexagones);
-    field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));*/
+    // field.MakeRect2 (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
+
+    field.hexagones.push_back (Hexagon (20,10, ccc4f (1, 1, 0.5, 1)));
+    field.hexagones.push_back (field.hexagones.rbegin()->Mirror (ZeroHexagon));
+
+    HexCoordinate for_intersect;
+    for_intersect.MakeRect (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
+    field.InterSect (for_intersect.hexagones);
+    field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));
 
     setTouchMode (kCCTouchesOneByOne);
     return true;
@@ -70,7 +74,7 @@ void HelloWorld::draw()
 
 }
 
-HelloWorld::HelloWorld() :field (10), line (10)
+HelloWorld::HelloWorld() :field (), line ()
 {
 
 }
@@ -82,7 +86,7 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 
     Hexagon h = field.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
 
-    h.Integerilze();
+    h.Integerlize();
     line.MakeLine (line.hexagones[0], h, ccc4f (1, 0.5, 0.5, 1));
 
 }
@@ -93,7 +97,7 @@ bool HelloWorld::ccTouchBegan (CCTouch *pTouch, CCEvent *pEvent)
 {
     Hexagon h = line.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
     h.color = ccc4f (1, 0, 1, 1);
-    h.Integerilze();
+    h.Integerlize();
     line.hexagones.push_back (h);
 
     return true;

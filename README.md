@@ -1,6 +1,6 @@
 CCHexagon
 =========
-
+![image](https://github.com/cubase01/CCHexagon/raw/master/demo.jpg)
 Hexagon for cocos2d-x
 use cube coordinate. 
 
