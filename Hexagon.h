@@ -160,11 +160,11 @@ public:
 
     inline bool operator < (const Hexagon& a) const
     {
-        return a.q + a.r <  this->q + this->r;
+        return this< &a;
     }
 
     inline bool operator >  (const Hexagon& a) const
     {
-        return a.q + a.r >  this->q + this->r;
+        return this > &a;
     }
 };
