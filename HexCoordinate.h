@@ -24,6 +24,7 @@ struct HexCoordinate
 
     void		CopyCoordinate (HexCoordinate& c);
     //make factory
+    void                MakeRect2     (int width, int height, const Hexagon& lb, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeRect      (int width, int height, const Hexagon& lb, ccColor4F color  = ccc4f (1, 1, 1, 1) );
     void                MakeLine      (const Hexagon& start, const Hexagon& end, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                InterSect     (const vector<Hexagon>& src);

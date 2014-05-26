@@ -14,7 +14,7 @@ struct BeeHive
     static void   MakeCross (int radius, const Hexagon& center, vector<Hexagon>& cross, ccColor4F color = ccc4f (1, 1, 1, 1));
     static void   MakeRect (int width, int height, const Hexagon& lb, vector<Hexagon>& cross, ccColor4F color = ccc4f (1, 1, 1, 1));
     static void   MakeLine (const Hexagon& start, const Hexagon& end, vector<Hexagon>& line, ccColor4F color = ccc4f (1, 1, 1, 1));
-
+    static void   MakeRect2 (int width, int height, const Hexagon& lb, vector<Hexagon>& cross, ccColor4F color = ccc4f (1, 1, 1, 1));
 
     static void   InterSect (vector<Hexagon>& des,const vector<Hexagon>& src );
     static bool	  Find (const vector<Hexagon>& src, const Hexagon& target);

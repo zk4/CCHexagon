@@ -91,5 +91,10 @@ void HexCoordinate::CopyCoordinate (HexCoordinate& c)
     c.matrix=matrix;
 }
 
+void HexCoordinate::MakeRect2 (int width, int height, const Hexagon& lb, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
+{
+    BeeHive::MakeRect2 (width, height, lb, hexagones, color);
+}
+
 
 

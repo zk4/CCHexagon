@@ -49,11 +49,11 @@ bool HelloWorld::init()
     field.MakeRect (10, 5, Hexagon (24, -10),   ccc4f (1, 0, 0.5, 1));
     //behind
 
-    field.MakeRect (10, 5, Hexagon (10, -10), ccc4f (1, 0, 0.5, 1));
-    HexCoordinate for_intersect;
-    for_intersect.MakeRect (10, 5, Hexagon (10, -10), ccc4f (1, 0, 0.5, 1));
-    field.InterSect (for_intersect.hexagones);
-    field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));
+    field.MakeRect2 (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
+    // HexCoordinate for_intersect;
+    // for_intersect.MakeRect (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
+    /*field.InterSect (for_intersect.hexagones);
+    field.hexagones.push_back (Hexagon (15, 15, ccc4f (0.5, 1, 0, 1)));*/
 
     setTouchMode (kCCTouchesOneByOne);
     return true;
