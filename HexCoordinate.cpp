@@ -87,8 +87,8 @@ void HexCoordinate::setMatrix (CCAffineTransform& m)
 
 void HexCoordinate::CopyCoordinate (HexCoordinate& c)
 {
-    c.length=length;
-    c.matrix=matrix;
+    length=c.length;
+    matrix=c.matrix;
 }
 
 void HexCoordinate::MakeRect2 (int width, int height, const Hexagon& lb, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
