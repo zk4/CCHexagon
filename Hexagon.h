@@ -64,104 +64,104 @@ public:
     {
         return round (-q - r);
     };
-    inline Hexagon operator- (const Hexagon& h) const
+    inline Hexagon operator- (const Hexagon& h_) const
     {
         Hexagon p;
-        p.q = q - h.q;
-        p.r = r - h.r;
+        p.q = q - h_.q;
+        p.r = r - h_.r;
 
         return p;
     }
 
-    inline Hexagon operator+ (const Hexagon& h) const
+    inline Hexagon operator+ (const Hexagon& h_) const
     {
         Hexagon p;
-        p.q  =q+ h.q;
-        p.r =r+ h.r;
+        p.q  =q+ h_.q;
+        p.r =r+ h_.r;
 
         return p;
     }
-    inline Hexagon& operator+= (const Hexagon& h)
+    inline Hexagon& operator+= (const Hexagon& h_)
     {
 
-        q += h.q;
-        r += h.r;
+        q += h_.q;
+        r += h_.r;
 
         return *this;
     }
-    inline Hexagon& operator/= (const float scale)
+    inline Hexagon& operator/= (const float f_)
     {
-        assert (scale != 0);
-        if (scale!=0)
+        assert (f_ != 0);
+        if (f_!=0)
         {
-            q /= scale;
-            r /= scale;
+            q /= f_;
+            r /= f_;
         }
 
         return *this;
     }
-    inline Hexagon& operator*= (const float scale)
+    inline Hexagon& operator*= (const float f_)
     {
 
-        q *= scale;
-        r *= scale;
+        q *= f_;
+        r *= f_;
 
         return *this;
     }
-    inline Hexagon& operator-= (const Hexagon& h)
+    inline Hexagon& operator-= (const Hexagon& h_)
     {
 
-        q -= h.q;
-        r -= h.r;
+        q -= h_.q;
+        r -= h_.r;
 
         return *this;
     }
-    inline Hexagon& operator= (const Hexagon& h)
+    inline Hexagon& operator= (const Hexagon& h_)
     {
 
-        q = h.q;
-        r = h.r;
+        q = h_.q;
+        r = h_.r;
 
-        color=h.color;
+        color=h_.color;
         return *this;
     }
-    inline Hexagon operator* (float f) const
+    inline Hexagon operator* (float f_) const
     {
 
         Hexagon p;
-        p.q = q * f;
-        p.r = r * f;
+        p.q = q * f_;
+        p.r = r * f_;
 
         return p;
     }
 
-    inline Hexagon operator/ (float f) const
+    inline Hexagon operator/ (float f_) const
     {
-        assert (f != 0);
+        assert (f_ != 0);
         Hexagon p;
 
-        if (f!=0)
+        if (f_!=0)
         {
-            p.q = q / f;
-            p.r = r / f;
+            p.q = q / f_;
+            p.r = r / f_;
         }
 
         return p;
     }
 
-    inline bool operator != (const Hexagon& a) const
+    inline bool operator != (const Hexagon& h_) const
     {
-        return ! (*this == a);
+        return ! (*this == h_);
     }
 
-    inline bool operator == (const Hexagon& a) const
+    inline bool operator == (const Hexagon& h_) const
     {
-        return (abs (a.q - this->q)<FLT_EPSILON) && (abs (a.r - this->r)<FLT_EPSILON);
+        return (abs (h_.q - this->q)<FLT_EPSILON) && (abs (h_.r - this->r)<FLT_EPSILON);
     }
 
-    inline bool operator < (const Hexagon& a) const
+    inline bool operator < (const Hexagon& h_) const
     {
-        return this->q < a.q || (this->q == a.q && this->r < a.r);
+        return this->q < h_.q || ((this->q == h_.q)  && this->r < h_.r);
     }
 
 

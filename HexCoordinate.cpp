@@ -6,6 +6,7 @@ using namespace std;
 
 void HexCoordinate::draw()
 {
+
     for (auto& hexagon : hexagones)
     {
         CCPoint center = Hex2CCP (hexagon);
@@ -28,7 +29,7 @@ cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 
 Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
 {
-    CCPoint pp = CCPointApplyAffineTransform (p , CCAffineTransformInvert (matrix));
+    CCPoint pp = CCPointApplyAffineTransform (p, CCAffineTransformInvert (matrix));
     return Hexagon (pp.x / length, pp.y / length)  ;
 }
 
