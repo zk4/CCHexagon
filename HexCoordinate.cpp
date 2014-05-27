@@ -23,15 +23,13 @@ HexCoordinate::HexCoordinate (float length_,  CCAffineTransform  m_) :
 
 cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 {
-    h *= length;
-
-    return CCPointApplyAffineTransform (ccp (h.q, h.r), matrix) ;
+    return  CCPointApplyAffineTransform (ccp (h.q*length, h.r*length), matrix);
 }
 
 Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
 {
     CCPoint pp = CCPointApplyAffineTransform (p , CCAffineTransformInvert (matrix));
-    return Hexagon (pp.x, pp.y) / length;
+    return Hexagon (pp.x / length, pp.y / length)  ;
 }
 
 
@@ -89,7 +87,6 @@ void HexCoordinate::setMatrix (CCAffineTransform& m)
 void HexCoordinate::CopyCoordinate (HexCoordinate& c)
 {
     c.length=length;
-
     c.matrix=matrix;
 }
 
