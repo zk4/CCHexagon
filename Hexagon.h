@@ -12,6 +12,7 @@
 
 using namespace cocos2d;
 using namespace std;
+class HexCoordinate;
 #define ZeroHexagon  Hexagon()
 class  Hexagon
 {
@@ -43,7 +44,7 @@ public:
     {
         return -q - r;
     };
-    void				Draw (int length, CCPoint center);
+	void				Draw(HexCoordinate* coord_);
     float				Distance (const Hexagon& h) const;
     Hexagon::eDirection Towards (const Hexagon& h)const ;
     Hexagon				Mirror (const Hexagon& mirror_hex)const;

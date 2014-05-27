@@ -20,8 +20,8 @@ struct HexCoordinate
     void				setMatrix (CCAffineTransform& m);
     void				setZeroPoint (int x,int y);
     void				draw	      ();
-    cocos2d::CCPoint	Hex2CCP       (Hexagon  h) const;
-    Hexagon				CCP2Hex       (cocos2d::CCPoint  p)const;
+    cocos2d::CCPoint	Hex2CCP       (const Hexagon&  h) const;
+    Hexagon				CCP2Hex       (const cocos2d::CCPoint&  p)const;
     bool                Find          (const Hexagon& target)const;
 
     void		CopyCoordinate (HexCoordinate& c);

@@ -65,17 +65,22 @@ bool HelloWorld::init()
 
 
 
+
 void HelloWorld::draw()
 {
+
+
     CCLayer::draw();
 
+
+	 
     field.draw();
     line.draw();
     intersection.draw();
-
+ 
 }
 
-HelloWorld::HelloWorld() :field (), line ()
+HelloWorld::HelloWorld() :field(10, { sqrt(3.0f), 0, sqrt(3.0f) / 2.0f, -1.5f/2, 0, 0 }), line()
 {
 
 }

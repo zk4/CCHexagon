@@ -1,5 +1,6 @@
 #include "Hexagon.h"
 #include <cmath>
+#include "HexCoordinate.h"
 using namespace std;
 
 Hexagon Hexagon::s_directions[Hexagon::eDirection::COUNT] =
@@ -42,8 +43,32 @@ Hexagon& Hexagon::Move (eDirection dir, int times)
     *this += (s_directions[dir] * times);
     return *this;
 }
-void Hexagon::Draw (int length, CCPoint center)
+void CGAffineToGL(const CCAffineTransform *t, GLfloat *m)
 {
+	// | m[0] m[4] m[8]  m[12] |     | m11 m21 m31 m41 |     | a c 0 tx |
+	// | m[1] m[5] m[9]  m[13] |     | m12 m22 m32 m42 |     | b d 0 ty |
+	// | m[2] m[6] m[10] m[14] | <=> | m13 m23 m33 m43 | <=> | 0 0 1  0 |
+	// | m[3] m[7] m[11] m[15] |     | m14 m24 m34 m44 |     | 0 0 0  1 |
+
+	m[2] = m[3] = m[6] = m[7] = m[8] = m[9] = m[11] = m[14] = 0.0f;
+	m[10] = m[15] = 1.0f;
+	m[0] = t->a; m[4] = t->c; m[12] = t->tx;
+	m[1] = t->b; m[5] = t->d; m[13] = t->ty;
+}
+
+void Hexagon::Draw(HexCoordinate* coord_)
+{
+	CCPoint center = coord_->Hex2CCP(*this);
+	int length = coord_->length;
+	//sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f,0,0 }
+	CCAffineTransform& matrix = coord_->matrix;
+	CCAffineTransform af = { matrix.a / sqrt(3.0f), 0, 0, matrix.d/-1.5f, center.x, center.y };
+
+	kmGLPushMatrix();
+	kmMat4 transfrom4x4;
+	CGAffineToGL(&af, transfrom4x4.mat);
+	kmGLMultMatrix(&transfrom4x4);
+
     for (int i = 0; i < 6; ++i)
     {
         float start_radian = M_PI / 3 * i + (M_PI / 6);
@@ -51,11 +76,12 @@ void Hexagon::Draw (int length, CCPoint center)
 
         ccDrawColor4F (color.r, color.g, color.b, color.a);
         ccDrawLine (
-            ccpAdd (ccp (cos (start_radian)*length, sin (start_radian)*length), center),
-            ccpAdd (ccp (cos (end_radian)*length, sin (end_radian)*length), center)
+            ccp  ( cos (start_radian)*length, sin (start_radian)*length) ,
+			ccp ( cos(end_radian)*length, sin(end_radian)*length) 
 
         );
     }
+	kmGLPopMatrix();
 }
 
 

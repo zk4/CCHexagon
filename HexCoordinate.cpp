@@ -9,8 +9,8 @@ void HexCoordinate::draw()
 
     for (auto& hexagon : hexagones)
     {
-        CCPoint center = Hex2CCP (hexagon);
-        hexagon.Draw (length, center );
+      
+        hexagon.Draw (this );
     }
 }
 
@@ -23,12 +23,12 @@ HexCoordinate::HexCoordinate (float length_, CCAffineTransform  m_, vector<Hexag
 
 }
 
-cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
+cocos2d::CCPoint HexCoordinate::Hex2CCP (const Hexagon&  h) const
 {
     return  CCPointApplyAffineTransform (ccp (h.q*length, h.r*length), matrix);
 }
 
-Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
+Hexagon HexCoordinate::CCP2Hex (const CCPoint&  p) const
 {
     CCPoint pp = CCPointApplyAffineTransform (p, CCAffineTransformInvert (matrix));
     return Hexagon (pp.x / length, pp.y / length)  ;
