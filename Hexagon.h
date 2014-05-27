@@ -52,18 +52,7 @@ public:
     void				Normalize();
     Hexagon&			Move (Hexagon::eDirection dir, int times=1);
     Hexagon&			Color (const ccColor4F& color);
-    inline int					ix() const
-    {
-        return round (q);
-    };
-    inline int					iz() const
-    {
-        return round (r);
-    };
-    inline int					iy() const
-    {
-        return round (-q - r);
-    };
+
     inline Hexagon operator- (const Hexagon& h_) const
     {
         Hexagon p;
