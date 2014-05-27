@@ -6,23 +6,6 @@ using namespace std;
 
 void HexCoordinate::draw()
 {
-    ccDrawColor4F (1,1,0,1);
-    ccDrawLine (
-        ccp (-1000 + matrix.tx, matrix.ty),
-        ccp (1000 + matrix.tx, matrix.ty));
-    ccDrawLine (
-        ccp (matrix.tx, -1000 + matrix.ty),
-        ccp (matrix.tx, 1000 + matrix.ty));
-
-    ccPointSize (15);
-    CCPoint p = ccp ( 50, 0);
-    float radin= M_PI/4;
-    CCAffineTransform af = { cos (radin), sin (radin), 0, 1, matrix.tx, matrix.ty };
-    af = CCAffineTransformConcat ({ 1, 0, 0, 1, 110, 0 }, af);
-    // p = CCPointApplyAffineTransform (p,af);
-    // af = { 1, 0, 0,1, 110, 0 };
-    p = CCPointApplyAffineTransform (p, af);
-    ccDrawPoint (p);
 
     for (auto& hexagon : hexagones)
     {
@@ -46,9 +29,7 @@ cocos2d::CCPoint HexCoordinate::Hex2CCP (Hexagon  h) const
 
 Hexagon HexCoordinate::CCP2Hex (CCPoint  p) const
 {
-    CCAffineTransform af = { 1, 0, -cos (M_PI / 3), -sin (M_PI / 3), -matrix.tx, -matrix .ty};
-    CCAffineTransform af2 = CCAffineTransformInvert (matrix);
-    CCPoint pp = CCPointApplyAffineTransform (p, af2);
+    CCPoint pp = CCPointApplyAffineTransform (p, CCAffineTransformInvert (matrix));
     return Hexagon (pp.x / length, pp.y / length)  ;
 }
 
