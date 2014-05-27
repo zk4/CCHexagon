@@ -11,10 +11,12 @@ struct HexCoordinate
     //cocos2d::CCPoint zeroPoint;
     float length;
     vector<Hexagon>  hexagones;
+    vector<Hexagon>*  mask;
     CCAffineTransform matrix;
 
-    HexCoordinate (float length_ = 10,   CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f,0,0 });
+    HexCoordinate (float length_ = 10,   CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f,0,0 },vector<Hexagon>* mask=NULL);
 
+    void				setMask (vector<Hexagon>* mask);
     void				setMatrix (CCAffineTransform& m);
     void				setZeroPoint (int x,int y);
     void				draw	      ();
@@ -33,7 +35,8 @@ struct HexCoordinate
     void                MakeRingHex   (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeSolidHex  (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
 
-
+private:
+    void				doMask();
 };
 
 

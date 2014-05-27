@@ -26,6 +26,7 @@ public:
     void draw();
     HexCoordinate   field;
     HexCoordinate   line;
+    HexCoordinate   intersection;
     //  HexCoordinate  touch_field;
 };
 

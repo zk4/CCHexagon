@@ -30,7 +30,9 @@ bool HelloWorld::init()
     CCSize s = CCDirector::sharedDirector()->getWinSize();
 
     field.setZeroPoint (s.width / 2, s.height / 2);
-    line.setZeroPoint (s.width / 2, s.height / 2);
+    line.CopyCoordinate (field);
+    intersection.CopyCoordinate (field);
+    intersection.setMask (&field.hexagones);
     HexCoordinate h;
     BeeHive::MakeRingHex (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
     //test direction
@@ -69,6 +71,7 @@ void HelloWorld::draw()
 
     field.draw();
     line.draw();
+    intersection.draw();
 
 }
 
@@ -86,7 +89,8 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 
     h.Integerlize();
     line.MakeLine (line.hexagones[0], h, ccc4f (1, 0.5, 0.5, 1));
-
+    intersection.hexagones.clear();
+    intersection.MakeSolidHex (3, h, ccc4f (1,0, 0.5, 1));
 }
 
 
