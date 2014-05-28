@@ -9,7 +9,7 @@ void HexCoordinate::draw()
 
     for (auto& hexagon : hexagones)
     {
-      
+
         hexagon.Draw (this );
     }
 }
@@ -113,22 +113,34 @@ void HexCoordinate::setZeroPoint (int x, int y)
     matrix.ty=y;
 }
 
-void HexCoordinate::setMask (vector<Hexagon>*mask_)
+void HexCoordinate::setMask (vector<Hexagon>*mask_, bool bBasedonMask_)
 {
     mask=mask_;
+    _bBasedonMask=bBasedonMask_;
 }
 
 void HexCoordinate::doMask()
 {
     if (mask)
     {
-        for (auto & a :*mask)
+
+        for (int i=hexagones.size()-1; i>=0; --i)
         {
-            for (int i=hexagones.size()-1; i>=0; --i)
+            bool found =false;
+            for (auto & a : *mask)
             {
                 if (a == hexagones[i])
-                    hexagones.erase (hexagones.begin()+i);
+                {
+                    if (!_bBasedonMask)
+                        hexagones.erase (hexagones.begin() + i);
+                    else
+                        found = true;
+                    break;
+                }
+
             }
+            if (_bBasedonMask && !found)
+                hexagones.erase (hexagones.begin() + i);
         }
     }
 }

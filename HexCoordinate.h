@@ -10,13 +10,14 @@ struct HexCoordinate
 {
     //cocos2d::CCPoint zeroPoint;
     float length;
-    vector<Hexagon>  hexagones;
+    vector<Hexagon>   hexagones;
     vector<Hexagon>*  mask;
+    bool			  _bBasedonMask;
     CCAffineTransform matrix;
 
     HexCoordinate (float length_ = 10,   CCAffineTransform  m_ = { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f,0,0 },vector<Hexagon>* mask=NULL);
 
-    void				setMask (vector<Hexagon>* mask);
+    void				setMask (vector<Hexagon>* mask, bool bBasedonMask_=true);
     void				setMatrix (CCAffineTransform& m);
     void				setZeroPoint (int x,int y);
     void				draw	      ();
