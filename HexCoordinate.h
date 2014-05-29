@@ -25,6 +25,7 @@ struct HexCoordinate
     Hexagon				CCP2Hex       (const cocos2d::CCPoint&  p)const;
     bool                Find          (const Hexagon& target)const;
 
+
     void		CopyCoordinate (HexCoordinate& c);
     //make factory
     void                MakeRect2     (int width, int height, const Hexagon& lb, ccColor4F color = ccc4f (1, 1, 1, 1));
@@ -36,6 +37,7 @@ struct HexCoordinate
     void                MakeRingHex   (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
     void                MakeSolidHex  (int radius, const Hexagon& center, ccColor4F color = ccc4f (1, 1, 1, 1));
 
+    void				GetRingHex (int radius, const Hexagon& center, vector<Hexagon>& ring);
 private:
     void				doMask();
 };

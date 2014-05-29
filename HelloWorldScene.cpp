@@ -68,34 +68,22 @@ bool HelloWorld::init()
 
 void HelloWorld::draw()
 {
-
-
     CCLayer::draw();
-
-
-
     field.draw();
     line.draw();
     intersection.draw();
-
 }
 
-HelloWorld::HelloWorld() :field (10, { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f/2, 0, 0 }), line()
-{
-
-}
+HelloWorld::HelloWorld() :field (10, { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f/2, 0, 0 }), line() {}
 
 void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
     line.hexagones.erase (line.hexagones.begin() + 1, line.hexagones.end());
-
-
     Hexagon h = field.CCP2Hex (this->convertTouchToNodeSpace (pTouch));
-
     h.Integerlize();
     line.MakeLine (line.hexagones[0], h, ccc4f (1, 0.5, 0.5, 1));
     intersection.hexagones.clear();
-    intersection.MakeSolidHex (3, h, ccc4f (1,0, 0.5, 1));
+    intersection.MakeSolidHex (3, h, ccc4f (1,1, 1, 1));
 }
 
 
