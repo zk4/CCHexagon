@@ -6,8 +6,9 @@
 #include <vector>
 using namespace std;
 
-struct HexCoordinate
+class HexCoordinate
 {
+public:
     //cocos2d::CCPoint zeroPoint;
     float length;
     vector<Hexagon>   hexagones;

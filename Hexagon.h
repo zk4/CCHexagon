@@ -13,7 +13,15 @@
 using namespace cocos2d;
 using namespace std;
 class HexCoordinate;
-#define ZeroHexagon  Hexagon()
+#define HexZero  Hexagon()
+#define HexC   Hexagon::s_directions[Hexagon::C]
+#define HexR   Hexagon::s_directions[Hexagon::R]
+#define HexRT  Hexagon::s_directions[Hexagon::RT]
+#define HexLT  Hexagon::s_directions[Hexagon::LT]
+#define HexL   Hexagon::s_directions[Hexagon::L]
+#define HexLB  Hexagon::s_directions[Hexagon::LB]
+#define HexRB  Hexagon::s_directions[Hexagon::RB]
+
 class  Hexagon
 {
 public:
@@ -44,9 +52,9 @@ public:
     {
         return -q - r;
     };
-	void				Draw(HexCoordinate* coord_);
+    void				Draw (HexCoordinate* coord_);
     float				Distance (const Hexagon& h) const;
-    Hexagon::eDirection Towards (const Hexagon& h)const ;
+    Hexagon				Towards (const Hexagon& h)const;
     Hexagon				Mirror (const Hexagon& mirror_hex)const;
     Hexagon				Round() const;
     void				Integerlize();
@@ -59,7 +67,6 @@ public:
         Hexagon p;
         p.q = q - h_.q;
         p.r = r - h_.r;
-
         return p;
     }
 
@@ -68,15 +75,12 @@ public:
         Hexagon p;
         p.q  =q+ h_.q;
         p.r =r+ h_.r;
-
         return p;
     }
     inline Hexagon& operator+= (const Hexagon& h_)
     {
-
         q += h_.q;
         r += h_.r;
-
         return *this;
     }
     inline Hexagon& operator/= (const float f_)
@@ -87,41 +91,32 @@ public:
             q /= f_;
             r /= f_;
         }
-
         return *this;
     }
     inline Hexagon& operator*= (const float f_)
     {
-
         q *= f_;
         r *= f_;
-
         return *this;
     }
     inline Hexagon& operator-= (const Hexagon& h_)
     {
-
         q -= h_.q;
         r -= h_.r;
-
         return *this;
     }
     inline Hexagon& operator= (const Hexagon& h_)
     {
-
         q = h_.q;
         r = h_.r;
-
         color=h_.color;
         return *this;
     }
     inline Hexagon operator* (float f_) const
     {
-
         Hexagon p;
         p.q = q * f_;
         p.r = r * f_;
-
         return p;
     }
 
@@ -129,13 +124,11 @@ public:
     {
         assert (f_ != 0);
         Hexagon p;
-
         if (f_!=0)
         {
             p.q = q / f_;
             p.r = r / f_;
         }
-
         return p;
     }
 

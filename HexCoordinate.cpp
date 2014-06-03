@@ -6,10 +6,8 @@ using namespace std;
 
 void HexCoordinate::draw()
 {
-
     for (auto& hexagon : hexagones)
     {
-
         hexagon.Draw (this );
     }
 }
@@ -20,7 +18,6 @@ HexCoordinate::HexCoordinate (float length_, CCAffineTransform  m_, vector<Hexag
     matrix (m_),
     mask (mask_)
 {
-
 }
 
 cocos2d::CCPoint HexCoordinate::Hex2CCP (const Hexagon&  h) const
@@ -32,7 +29,6 @@ Hexagon HexCoordinate::CCP2Hex (const CCPoint&  p) const
 {
     CCPoint pp = CCPointApplyAffineTransform (p, CCAffineTransformInvert (matrix));
     return Hexagon (pp.x / length, pp.y / length)  ;
-
 }
 
 
@@ -72,7 +68,6 @@ void HexCoordinate::InterSect (const vector<Hexagon>& src)
 bool HexCoordinate::Find (const Hexagon& target) const
 {
     return   BeeHive::Find (hexagones, target);
-
 }
 
 
@@ -123,7 +118,6 @@ void HexCoordinate::doMask()
 {
     if (mask)
     {
-
         for (int i=hexagones.size()-1; i>=0; --i)
         {
             bool found =false;
@@ -137,7 +131,6 @@ void HexCoordinate::doMask()
                         found = true;
                     break;
                 }
-
             }
             if (_bBasedonMask && !found)
                 hexagones.erase (hexagones.begin() + i);

@@ -2,7 +2,6 @@
 
 void BeeHive::MakeSolidHex (int radius, const Hexagon& center, vector<Hexagon>& hexagons, ccColor4F color)
 {
-
     for (int q = radius; q >= -radius; --q)
     {
         for (int r = -radius; r <= radius; ++r)
@@ -11,27 +10,20 @@ void BeeHive::MakeSolidHex (int radius, const Hexagon& center, vector<Hexagon>& 
                 hexagons.push_back (Hexagon (q, r, color) += center);
         }
     }
-
 }
 
 void BeeHive::MakeRingHex (int radius, const Hexagon& center, vector<Hexagon>& ring, ccColor4F color)
 {
-
     for (int q = -radius; q <= radius; ++q)
     {
         for (int r = -radius; r <= radius; ++r)
         {
-
             if (max (max (abs (q), abs (r)), abs (-q - r)) == radius)
             {
-
                 ring.push_back (Hexagon (q, r, color) += center);
             }
         }
     }
-
-
-
 }
 
 void BeeHive::MakeRingHexes (int inner, int outter, const Hexagon& center, vector<Hexagon>& rings, ccColor4F color)
@@ -46,7 +38,6 @@ void BeeHive::MakeRingHexes (int inner, int outter, const Hexagon& center, vecto
 
 void BeeHive::MakeCross (int radius, const Hexagon& center, vector<Hexagon>& cross, ccColor4F color)
 {
-
     cross.push_back (center);
     for (int i = -radius; i <= radius; ++i)
     {
@@ -54,13 +45,10 @@ void BeeHive::MakeCross (int radius, const Hexagon& center, vector<Hexagon>& cro
         int x = i;
         int z = -i;
         int y = -x - z;
-
         cross.push_back (Hexagon (x, y, color) += center);
         cross.push_back (Hexagon (y, z, color) += center);
         cross.push_back (Hexagon (x, z, color) += center);
     }
-
-
 }
 
 void BeeHive::InterSect (vector<Hexagon>& des,const vector<Hexagon>& src )
@@ -92,7 +80,6 @@ bool BeeHive::Find (const vector<Hexagon>& src, const Hexagon& target)
 
 void BeeHive::MakeLine (const Hexagon& start, const Hexagon& end, vector<Hexagon>& line, ccColor4F color /*= ccc4f(1, 1, 1, 1)*/)
 {
-
     float N = start.Distance (end);
     if (N==0)return;
     for (int i = 0; i <= N; ++i)
@@ -105,7 +92,6 @@ void BeeHive::MakeLine (const Hexagon& start, const Hexagon& end, vector<Hexagon
 
 void BeeHive::MakeRect (int width, int height, const Hexagon& lb, vector<Hexagon>& rect, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
 {
-
     for (int h = 0; h < height; ++h)
     {
         for (int w = 0; w < width; ++w)
@@ -113,12 +99,10 @@ void BeeHive::MakeRect (int width, int height, const Hexagon& lb, vector<Hexagon
             rect.push_back ({ lb.q + ((h+1) / 2) + w, lb.r - h, color });
         }
     }
-
 }
 
 void BeeHive::MakeRect2 (int width, int height, const Hexagon& lb, vector<Hexagon>& rect, ccColor4F color /*= ccc4f (1, 1, 1, 1)*/)
 {
-
     for (int h = 0; h < height; ++h)
     {
         for (int w = 0; w < width - ( h & 1); ++w)
@@ -126,7 +110,6 @@ void BeeHive::MakeRect2 (int width, int height, const Hexagon& lb, vector<Hexago
             rect.push_back ({ lb.q + ((h + 1) / 2) + w, lb.r - h, color });
         }
     }
-
 }
 
 
