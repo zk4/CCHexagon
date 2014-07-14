@@ -15,7 +15,7 @@ float Hexagon::Distance (const Hexagon& h) const
     return max (max (abs (q - h.q), abs (r - h.r)), abs (y() - h.y()));
 }
 
-Hexagon::Hexagon (float q_ /*= 0*/, float r_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) :q (q_), r (r_), color (color_)
+Hexagon::Hexagon (float q_ /*= 0*/, float r_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) : q (q_), r (r_), color (color_)
 {
 }
 
@@ -60,7 +60,7 @@ void Hexagon::Draw (HexCoordinate* coord_)
     int length = coord_->length;
     //sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f,0,0 }
     CCAffineTransform& matrix = coord_->matrix;
-    CCAffineTransform af = { matrix.a / sqrt (3.0f), 0, 0, matrix.d/-1.5f, center.x, center.y };
+    CCAffineTransform af = { matrix.a / sqrt (3.0f), 0, 0, matrix.d / -1.5f, center.x, center.y };
     kmGLPushMatrix();
     kmMat4 transfrom4x4;
     CGAffineToGL (&af, transfrom4x4.mat);
@@ -75,7 +75,18 @@ void Hexagon::Draw (HexCoordinate* coord_)
             ccp ( cos (end_radian)*length, sin (end_radian)*length)
         );
     }
+    ccPointSize(33);
+    //  ccDrawPoint(CCPointZero);
+    static char buffer[4];
+    sprintf(buffer, "%i,%i", (int)q, (int)r);
+    static CCLabelTTF* ttf = CCLabelTTF::create(buffer, "Helvetica", 22);
+    if (ttf->isSingleReference())
+        ttf->retain();
+    ttf->setString(buffer);
+    ttf->visit();
+
     kmGLPopMatrix();
+
 }
 
 
@@ -106,9 +117,9 @@ void Hexagon::Integerlize()
 
 void Hexagon::Normalize()
 {
-    if (q!=0)
+    if (q != 0)
         q /= abs (q);
-    if (r!=0)
+    if (r != 0)
         r /= abs (r);
 }
 
@@ -119,7 +130,7 @@ Hexagon Hexagon::Mirror (const Hexagon& mirror) const
 
 Hexagon& Hexagon::Color (const ccColor4F& color)
 {
-    this->color=color;
+    this->color = color;
     return *this;
 }
 

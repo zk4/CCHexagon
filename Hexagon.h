@@ -59,7 +59,7 @@ public:
     Hexagon				Round() const;
     void				Integerlize();
     void				Normalize();
-    Hexagon&			Move (Hexagon::eDirection dir, int times=1);
+    Hexagon&			Move (Hexagon::eDirection dir, int times = 1);
     Hexagon&			Color (const ccColor4F& color);
 
     inline Hexagon operator- (const Hexagon& h_) const
@@ -73,8 +73,8 @@ public:
     inline Hexagon operator+ (const Hexagon& h_) const
     {
         Hexagon p;
-        p.q  =q+ h_.q;
-        p.r =r+ h_.r;
+        p.q  = q + h_.q;
+        p.r = r + h_.r;
         return p;
     }
     inline Hexagon& operator+= (const Hexagon& h_)
@@ -86,7 +86,7 @@ public:
     inline Hexagon& operator/= (const float f_)
     {
         assert (f_ != 0);
-        if (f_!=0)
+        if (f_ != 0)
         {
             q /= f_;
             r /= f_;
@@ -109,7 +109,7 @@ public:
     {
         q = h_.q;
         r = h_.r;
-        color=h_.color;
+        color = h_.color;
         return *this;
     }
     inline Hexagon operator* (float f_) const
@@ -124,7 +124,7 @@ public:
     {
         assert (f_ != 0);
         Hexagon p;
-        if (f_!=0)
+        if (f_ != 0)
         {
             p.q = q / f_;
             p.r = r / f_;
@@ -139,7 +139,7 @@ public:
 
     inline bool operator == (const Hexagon& h_) const
     {
-        return (abs (h_.q - this->q)<FLT_EPSILON) && (abs (h_.r - this->r)<FLT_EPSILON);
+        return (abs (h_.q - this->q) < FLT_EPSILON) && (abs (h_.r - this->r) < FLT_EPSILON);
     }
 
     inline bool operator < (const Hexagon& h_) const

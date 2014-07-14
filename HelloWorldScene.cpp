@@ -29,30 +29,30 @@ bool HelloWorld::init()
     }
     CCSize s = CCDirector::sharedDirector()->getWinSize();
 
-    field.setZeroPoint (s.width / 2, s.height / 2);
+    field.setZeroPoint (s.width / 6, s.height / 4);
     line.CopyCoordinate (field);
     intersection.CopyCoordinate (field);
     intersection.setMask (&field.hexagones);
     HexCoordinate h;
-    BeeHive::MakeRingHex (1, ZeroHexagon, h.hexagones, ccc4f (0, 1, 1, 1));
+    BeeHive::MakeRingHex (1, HexZero, h.hexagones, ccc4f (0, 1, 1, 1));
     //test direction
-    for (auto&a :h.hexagones )
+    for (auto&a : h.hexagones )
     {
-        CCLOG ("0,0 ->%f,%f direction is %d\n",a.q,a.r, ZeroHexagon.Towards (a));
+        CCLOG("0,0 ->%f,%f direction is %d\n", a.q, a.r, HexZero.Towards(a));
     }
 
-    field.MakeLine (Hexagon (-15, 10), Hexagon (8, -15), ccc4f (1, 0, 0, 1));
-    field.MakeCross (3, Hexagon (10, 10),   ccc4f (1, 1, 0, 1));
-    field.MakeSolidHex (3, Hexagon (-10, 10),   ccc4f (1, 0, 1, 1));
-    field.MakeRingHex (3, Hexagon (-10, -10),   ccc4f (0, 1, 1, 1));
-    field.MakeRingHexes (3, 4, Hexagon (10, -10),   ccc4f (0, 0, 1, 1));
-    field.MakeRect (10, 5, Hexagon (24, -10),   ccc4f (1, 0, 0.5, 1));
+    //  field.MakeLine(Hexagon(-15, 10), Hexagon(8, -15), ccc4f(1, 0, 0, 1));
+    //  field.MakeCross(3, Hexagon(10, 10), ccc4f(1, 1, 0, 1));
+    // field.MakeSolidHex(3, Hexagon(-10, 10), ccc4f(1, 0, 1, 1));
+    // field.MakeRingHex(3, Hexagon(-10, -10), ccc4f(0, 1, 1, 1));
+    // field.MakeRingHexes(3, 4, Hexagon(10, -10), ccc4f(0, 0, 1, 1));
+    field.MakeRect2(12, 7, Hexagon(0, 0), ccc4f(1, 0, 0.5, 1));
     //behind
 
     // field.MakeRect2 (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
 
-    field.hexagones.push_back (Hexagon (20,10, ccc4f (1, 1, 0.5, 1)));
-    field.hexagones.push_back (field.hexagones.rbegin()->Mirror (ZeroHexagon));
+    field.hexagones.push_back (Hexagon (20, 10, ccc4f (1, 1, 0.5, 1)));
+    field.hexagones.push_back(field.hexagones.rbegin()->Mirror(HexZero));
 
     HexCoordinate for_intersect;
     for_intersect.MakeRect (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
@@ -74,7 +74,7 @@ void HelloWorld::draw()
     intersection.draw();
 }
 
-HelloWorld::HelloWorld() :field (10, { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f/2, 0, 0 }), line() {}
+HelloWorld::HelloWorld() : field (40, { sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f / 2, 0, 0 }), line() {}
 
 void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
 {
@@ -83,7 +83,7 @@ void HelloWorld::ccTouchMoved (CCTouch *pTouch, CCEvent *pEvent)
     h.Integerlize();
     line.MakeLine (line.hexagones[0], h, ccc4f (1, 0.5, 0.5, 1));
     intersection.hexagones.clear();
-    intersection.MakeSolidHex (3, h, ccc4f (1,1, 1, 1));
+    intersection.MakeSolidHex (3, h, ccc4f (1, 1, 1, 1));
 }
 
 
