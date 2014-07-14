@@ -17,11 +17,18 @@ float Hexagon::Distance (const Hexagon& h) const
 
 Hexagon::Hexagon (float q_ /*= 0*/, float r_ /*= 0 */, ccColor4F color_ /*= ccc4f(1, 1, 1, 1)*/) : q (q_), r (r_), color (color_)
 {
+#ifdef _DEBUG
+    _init = false;
+#endif // _DEBUG
+
 }
 
 Hexagon::Hexagon (const Hexagon& h)
 {
     *this = h;
+#ifdef _DEBUG
+    _init = false;
+#endif // _DEBUG
 }
 
 Hexagon Hexagon::Towards (const Hexagon& target) const
@@ -56,6 +63,18 @@ void CGAffineToGL (const CCAffineTransform *t, GLfloat *m)
 
 void Hexagon::Draw (HexCoordinate* coord_)
 {
+#ifdef _DEBUG
+    if (!_init)
+    {
+        static char buffer[4];
+        sprintf(buffer, "%i,%i", (int)q, (int)r);
+        ttf = CCLabelTTF::create(buffer, "Helvetica", 32);
+
+        ttf->retain();
+        _init = true;
+    }
+#endif // _DEBUG
+
     CCPoint center = coord_->Hex2CCP (*this);
     int length = coord_->length;
     //sqrt (3.0f), 0, sqrt (3.0f) / 2.0f, -1.5f,0,0 }
@@ -76,14 +95,10 @@ void Hexagon::Draw (HexCoordinate* coord_)
         );
     }
     ccPointSize(33);
-    //  ccDrawPoint(CCPointZero);
-    static char buffer[4];
-    sprintf(buffer, "%i,%i", (int)q, (int)r);
-    static CCLabelTTF* ttf = CCLabelTTF::create(buffer, "Helvetica", 22);
-    if (ttf->isSingleReference())
-        ttf->retain();
-    ttf->setString(buffer);
+
+#ifdef _DEBUG
     ttf->visit();
+#endif // _DEBUG
 
     kmGLPopMatrix();
 

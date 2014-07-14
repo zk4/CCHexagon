@@ -31,6 +31,11 @@ public:
 
     ccColor4F color;
 
+#ifdef _DEBUG
+    CCLabelTTF * ttf;
+    bool		 _init;
+#endif // DEBUG
+
     enum eDirection
     {
         C,

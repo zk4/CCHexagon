@@ -46,7 +46,7 @@ bool HelloWorld::init()
     // field.MakeSolidHex(3, Hexagon(-10, 10), ccc4f(1, 0, 1, 1));
     // field.MakeRingHex(3, Hexagon(-10, -10), ccc4f(0, 1, 1, 1));
     // field.MakeRingHexes(3, 4, Hexagon(10, -10), ccc4f(0, 0, 1, 1));
-    field.MakeRect2(12, 7, Hexagon(0, 0), ccc4f(1, 0, 0.5, 1));
+    field.MakeRect2(9, 7, Hexagon(0, 0), ccc4f(1, 0, 0.5, 1));
     //behind
 
     // field.MakeRect2 (11, 7, Hexagon (5, -10), ccc4f (1, 0, 0.5, 1));
